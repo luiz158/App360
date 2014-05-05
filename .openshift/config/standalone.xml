@@ -183,7 +183,7 @@
 					</pool>
 				</datasource>
 				<datasource jndi-name="java:jboss/datasources/caf360DS" enabled="${postgresql.enabled}"
-					use-java-context="true" pool-name="PostgreSQLDS" use-ccm="true">
+					use-java-context="true" pool-name="caf360DS" use-ccm="true">
 					<connection-url>jdbc:postgresql://${env.OPENSHIFT_POSTGRESQL_DB_HOST}:${env.OPENSHIFT_POSTGRESQL_DB_PORT}/${env.OPENSHIFT_APP_NAME}
 					</connection-url>
 					<driver>postgresql</driver>
