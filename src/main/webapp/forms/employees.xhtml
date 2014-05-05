@@ -1,0 +1,107 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:r="http://richfaces.org" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:c="http://java.sun.com/jstl/core">
+
+<ui:composition template="/templates/main.xhtml">
+	<ui:define name="content">
+		#{login.checkRole('admin')}
+		<r:notifyMessages stayTime="2000" />
+		<h:form id="form" prependId="false">
+			<r:outputPanel ajaxRendered="true">
+				<r:region>
+
+					<fieldset>
+						<legend>Listado de empleados:</legend>
+
+						<h:panelGrid columns="2">
+							<h:outputLabel value="Pais:" />
+							<h:selectOneMenu value="#{viewEmployee.country}">
+								<f:selectItem itemLabel="---" itemValue="---" noSelectionOption="true" />
+								<f:selectItems value="#{viewEmployee.countries}" var="c" itemLabel="#{c.name}" itemValue="#{c}" />
+								<r:ajax event="change" execute="@form" />
+								<f:converter binding="#{converterForCountry}" />
+							</h:selectOneMenu>
+							<h:outputLabel value="Marca:" />
+							<h:selectOneMenu value="#{viewEmployee.brand}">
+								<f:selectItem itemLabel="---" itemValue="---" noSelectionOption="true" />
+								<f:selectItems value="#{viewEmployee.brands}" var="b" itemLabel="#{b.name}" itemValue="#{b}" />
+								<r:ajax event="change" execute="@form" />
+								<f:converter binding="#{converterForBrand}" />
+							</h:selectOneMenu>
+						</h:panelGrid>
+
+						<r:tabPanel switchType="ajax">
+							<r:repeat value="#{viewEmployee.employeeStartLetters}" var="letter">
+								<r:tab header="#{letter}" switchType="ajax">
+									<r:dataTable value="#{viewEmployee.employeesForLetter(letter)}" var="e" rows="40" rowKeyVar="rowNum">
+										<f:facet name="header">
+											<r:dataScroller boundaryControls="hide" fastControls="hide" />
+										</f:facet>
+										<r:column>
+											<f:facet name="header">#</f:facet>
+											<h:outputText value="#{rowNum+1}" />
+										</r:column>
+										<r:column>
+											<f:facet name="header">Nombre</f:facet>
+											<h:outputText value="#{e.fullName}" />
+										</r:column>
+										<r:column style="text-align:center;">
+											<f:facet name="header">Marca</f:facet>
+											<h:outputText value="#{e.brand.name}" />
+										</r:column>
+										<r:column style="text-align:center;">
+											<f:facet name="header">Hur</f:facet>
+											<h:outputText value="#{e.hurid}" />
+										</r:column>
+										<r:column>
+											<f:facet name="header">Cargo</f:facet>
+											<h:outputText value="#{e.position}" />
+										</r:column>
+										<r:column style="text-align:center;">
+											<f:facet name="header">Usuario</f:facet>
+											<h:outputText value="#{e.doc_id}" />
+										</r:column>
+										<r:column>
+											<f:facet name="header">.</f:facet>
+											<r:commandLink disabled="true">
+												<h:graphicImage library="images/icons" name="edit.gif" alt="Edit" />
+												<r:ajax event="click" execute="@this" listener="#{viewEmployee.load(u.id)}"
+													oncomplete="#{r:component('popup')}.show();" />
+											</r:commandLink>
+											&nbsp;
+											<r:commandLink actionListener="#{loginManager.resetEmployeePassword(e.doc_id)}" execute="@this">
+												<h:graphicImage library="images/icons" name="reset.gif" alt="Reset password" />
+											</r:commandLink>
+											&nbsp;
+											<r:commandLink actionListener="#{viewEmployee.remove(e.id)}" execute="@this"
+												rendered="#{activeUser.activeRole.contains('sadmin')}">
+												<h:graphicImage library="images/icons" name="delete.gif" alt="Remove" />
+											</r:commandLink>
+										</r:column>
+									</r:dataTable>
+								</r:tab>
+							</r:repeat>
+						</r:tabPanel>
+					</fieldset>
+
+				</r:region>
+			</r:outputPanel>
+		</h:form>
+
+		<r:popupPanel id="popup" autosized="true" modal="true">
+			<h:form id="uForm">
+				<r:outputPanel ajaxRendered="true">
+					<r:region>
+						<fieldset>
+							<legend>Employee form:</legend>
+							<h:panelGrid columns="2">
+
+							</h:panelGrid>
+						</fieldset>
+					</r:region>
+				</r:outputPanel>
+			</h:form>
+		</r:popupPanel>
+	</ui:define>
+</ui:composition>
+</html>

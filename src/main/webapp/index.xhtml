@@ -1,0 +1,46 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:r="http://richfaces.org">
+
+<ui:composition template="/templates/main.xhtml">
+	<ui:define name="content">
+		<r:notifyMessages stayTime="2000" />
+		<h:form id="form" prependId="false">
+			<r:outputPanel ajaxRendered="true">
+				<r:region>
+					<r:panel rendered="#{!loggedIn}" styleClass="centered" style="width: 250px">
+						<f:facet name="header">Bienvenido</f:facet>
+						<h:panelGrid columns="2">
+							<h:outputLabel value="Usuario:" />
+							<h:inputText id="username" value="#{credentials.username}" required="true" size="25" />
+							<h:outputLabel value="Clave:" />
+							<h:inputSecret id="password" value="#{credentials.password}" required="true" size="25" />
+						</h:panelGrid>
+						<div style="text-align: center;">
+							<h:commandButton value="Ingresar" action="#{appSession.checkCredentials}" />
+						</div>
+					</r:panel>
+
+					<r:panel rendered="#{loggedIn}" styleClass="centered" style="width: 550px">
+						<f:facet name="header">Bienvenido</f:facet>
+						<p style="text-align: justify;">En nombre del equipo de Recursos Humanos, deseamos darte la bienvenida a este
+							portal interactivo, que contiene herramientas de opinión y evaluación de diferentes procesos de la organización.</p>
+						<br />
+						<p style="text-align: justify;">El crecimiento excepcional de nuestra empresa, es el resultado de contar con
+							marcas extraordinarias, lideradas por gente extraordinaria. Para asegurar que también tenemos una ejecución
+							extraordinaria, es necesario conocer nuestras fortalezas y oportunidades de mejora, con el fin de ejecutar planes
+							de acción adecuados y oportunos para lograrlo.</p>
+						<br />
+						<p style="text-align: justify;">Tu aporte al completar honesta y objetivamente las herramientas de este
+							portal, contribuirá a construir el mejor lugar para trabajar.</p>
+						<br />
+						<p>Agradecemos tu participación</p>
+						<br />
+						<p style="text-align: right;">Recursos Humanos</p>
+					</r:panel>
+				</r:region>
+			</r:outputPanel>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

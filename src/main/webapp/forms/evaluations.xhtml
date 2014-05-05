@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:r="http://richfaces.org"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jstl/core">
+
+<ui:composition template="/templates/main.xhtml">
+	<ui:define name="content">
+		#{login.checkRole(null)}
+		<r:notifyMessages stayTime="2000" />
+		<h:form id="form" prependId="false" rendered="#{loggedIn}">
+			<r:outputPanel ajaxRendered="true">
+				<r:region>
+					<h:graphicImage style="display: block; margin-left: auto; margin-right: auto;" library="images" name="evals.png" />
+					<br />
+					<r:panel style="width: 550px" styleClass="errorPanel">
+						<p style="text-align: center;">Te damos la más cordial bienvenida a nuestro portal de</p>
+						<p style="text-align: center;">Evaluación 360&deg;</p>
+						<br />
+						<br />
+						<p style="text-align: justify;">La evaluación de 360&deg; es una modalidad que nos permite conocer el estilo
+							de gestión de una persona, a través de diferentes dimensiones: autoevaluación, evaluación del jefe, pares,
+							colaboradores y/o clientes, mediante la percepción de conductas observables.</p>
+						<br />
+						<p style="text-align: justify;">
+							Las conductas observables evaluadas, forman parte de las <b>Competencias del líder integral CFA</b>.
+						</p>
+						<br />
+						<p style="text-align: justify;">Gracias por contribuir con este importante ejercicio a fortalecer el
+							desarrollo de nuestros líderes!</p>
+						<br />
+						<p style="text-align: right;">Recursos Humanos</p>
+					</r:panel>
+					<br />
+
+					<r:repeat value="#{viewPending.pendingSurveys}" var="survey">
+						<r:collapsiblePanel header="#{survey.name}">
+							<h:outputText value="#{survey.description}" />
+							<r:dataTable value="#{viewPending.pendingEvaluationsForSurvey(survey.id)}" var="e" rowKeyVar="rowNum">
+								<r:column>
+									<f:facet name="header">#</f:facet>
+									<h:outputText value="#{rowNum+1}" />
+								</r:column>
+								<r:column>
+									<f:facet name="header">Evaluando</f:facet>
+									<h:outputText value="#{e.evaluand.fullName}" />
+								</r:column>
+								<r:column rendered="false">
+									<f:facet name="header">Cargo</f:facet>
+									<h:outputText value="#{e.evaluand.position}" />
+								</r:column>
+								<r:column>
+									<f:facet name="header">.</f:facet>
+									<r:commandButton value="Evaluar" action="evaluation">
+										<f:setPropertyActionListener target="#{viewEvaluation.managedEvaluation}" value="#{e}" />
+									</r:commandButton>
+								</r:column>
+							</r:dataTable>
+						</r:collapsiblePanel>
+						<br />
+					</r:repeat>
+				</r:region>
+			</r:outputPanel>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

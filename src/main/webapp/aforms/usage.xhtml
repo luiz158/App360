@@ -1,0 +1,71 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:r="http://richfaces.org">
+
+<ui:composition template="/templates/main.xhtml">
+	<ui:define name="content">
+		<h:form id="form" prependId="false">
+			<r:poll interval="180000" enabled="true" render="@form" />
+			<r:outputPanel ajaxRendered="true">
+				<r:region>
+					<r:panel style="width: 140px; text-align: center;" styleClass="centered">
+						<h:panelGrid columns="2">
+							<h:outputLabel value="Logged users:" />
+							<h:outputLabel value="#{usageMonitor.loggedUsers}" />
+						</h:panelGrid>
+						<h:commandButton action="/error/logout" image="/resources/images/icons/reset.gif" />
+					</r:panel>
+
+					<br />
+					<r:panel header="Last logins" styleClass="centered">
+						<r:dataTable style="margin: 0px auto;" value="#{usageMonitor.latestUsers}" var="u" rowKeyVar="rowNum">
+							<r:column>
+								<f:facet name="header">#</f:facet>
+								<h:outputText value="#{rowNum+1}." />
+							</r:column>
+							<r:column>
+								<f:facet name="header">In</f:facet>
+								<h:selectBooleanCheckbox disabled="true" value="#{u.lastLogin > u.lastLogout}" />
+							</r:column>
+							<r:column style="text-align:center;">
+								<f:facet name="header">Username</f:facet>
+								<h:outputText value="#{u.username}" />
+							</r:column>
+							<r:column>
+								<f:facet name="header">Name</f:facet>
+								<h:outputText value="#{u.name}" />
+							</r:column>
+							<r:column style="text-align:center;">
+								<f:facet name="header">Last login</f:facet>
+								<h:outputText value="#{u.lastLogin}">
+									<f:converter binding="#{converterForDate}" />
+								</h:outputText>
+							</r:column>
+							<r:column style="text-align:center;">
+								<f:facet name="header">Last logout</f:facet>
+								<h:outputText value="#{u.lastLogout}">
+									<f:converter binding="#{converterForDate}" />
+								</h:outputText>
+							</r:column>
+						</r:dataTable>
+					</r:panel>
+
+					<br />
+					<r:panel header="Progress" styleClass="centered">
+						<r:dataGrid columns="3" style="margin: 0px auto;" value="#{usageMonitor.activeSurveys}" var="s">
+							<r:panel style="text-align: center;">
+								<h:panelGrid columns="1">
+									<h:outputText value="Survey:#{s.id} - Evals: #{usageMonitor.getCountEvaluations(s.id)}" />
+									<r:progressBar value="#{usageMonitor.getSurveyProgress(s.id)}">
+										<h:outputText value="#{usageMonitor.getSurveyProgress(s.id)}" style="font-size: 10px;" />
+									</r:progressBar>
+								</h:panelGrid>
+							</r:panel>
+						</r:dataGrid>
+					</r:panel>
+				</r:region>
+			</r:outputPanel>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

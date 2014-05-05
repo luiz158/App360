@@ -1,0 +1,25 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:r="http://richfaces.org">
+
+<h:head></h:head>
+<body>
+	<h:form id="navForm">
+		<h:panelGrid columns="1" rendered="#{loggedIn}">
+			<r:menuItem label="Inicio" action="/home.xhtml?faces-redirect=true" />
+			<r:menuItem label="Mis evaluaciones" action="/forms/evaluations.xhtml?faces-redirect=true" />
+
+			<r:dropDownMenu label="Admon. de empleados" rendered="#{activeUser.activeRole.contains('admin')}"
+				jointPoint="autoRight" direction="autoRight">
+				<r:menuItem label="Estructura" action="/forms/structure.xhtml?faces-redirect=true" />
+				<r:menuItem label="Listado" action="/forms/employees.xhtml?faces-redirect=true" />
+			</r:dropDownMenu>
+			<r:dropDownMenu label="Avance y resultados" rendered="#{activeUser.activeRole.contains('admin')}"
+				jointPoint="autoRight" direction="autoRight">
+				<r:menuItem label="Avance" action="/forms/progress.xhtml?faces-redirect=true" />
+				<r:menuItem label="Resultados" action="/forms/results.xhtml?faces-redirect=true" />
+			</r:dropDownMenu>
+		</h:panelGrid>
+	</h:form>
+</body>
+</html>

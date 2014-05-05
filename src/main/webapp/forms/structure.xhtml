@@ -1,0 +1,46 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:r="http://richfaces.org" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<ui:composition template="/templates/main.xhtml">
+	<ui:define name="content">
+		#{login.checkRole('admin')}
+		<r:notifyMessages stayTime="2000" />
+		<h:form id="form" prependId="false">
+			<r:outputPanel ajaxRendered="true">
+				<r:region>
+					<fieldset>
+						<legend>Estructura corporativa</legend>
+						<h:panelGrid columns="2">
+							<h:outputLabel value="Pais:" />
+							<h:selectOneMenu value="#{viewEmployee.country}">
+								<f:selectItem itemLabel="---" itemValue="---" noSelectionOption="true" />
+								<f:selectItems value="#{viewEmployee.countries}" var="c" itemLabel="#{c.name}" itemValue="#{c}" />
+								<r:ajax event="change" execute="@form" />
+								<f:converter binding="#{converterForCountry}" />
+							</h:selectOneMenu>
+							<h:outputLabel value="Marca:" />
+							<h:selectOneMenu value="#{viewEmployee.brand}">
+								<f:selectItem itemLabel="---" itemValue="---" noSelectionOption="true" />
+								<f:selectItems value="#{viewEmployee.brands}" var="b" itemLabel="#{b.name}" itemValue="#{b}" />
+								<r:ajax event="change" execute="@form" />
+								<f:converter binding="#{converterForBrand}" />
+							</h:selectOneMenu>
+						</h:panelGrid>
+						<hr />
+						<r:tree id="ETree" var="e">
+							<r:treeModelRecursiveAdaptor roots="#{rootEmployees}" nodes="#{viewEmployee.getChildren(e.id)}"
+								leaf="#{viewEmployee.isleaf(e.id)}">
+								<r:treeNode>
+									<h:outputText value="#{e.fullName}" />
+									<h:outputText value=" - [#{e.position}]" />
+								</r:treeNode>
+							</r:treeModelRecursiveAdaptor>
+						</r:tree>
+					</fieldset>
+				</r:region>
+			</r:outputPanel>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:r="http://richfaces.org" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:c="http://java.sun.com/jstl/core">
+
+<ui:composition template="/templates/main.xhtml">
+	<ui:define name="content">
+		#{login.checkRole(null)}
+		<r:notifyMessages stayTime="2000" />
+		<h:form id="form" prependId="false" rendered="#{loggedIn}">
+			<r:outputPanel ajaxRendered="true">
+				<r:region>
+					<fieldset>
+						<legend>
+							<h:outputText style="font-weight: bold;" value="Evaluando a: " />
+						</legend>
+						<h:outputLabel value="#{managedEvaluation.evaluand.fullName}" />
+					</fieldset>
+					<br />
+
+					<fieldset style="#{viewEvaluation.competence.html_style}">
+						<h:panelGrid columns="1" style="color: white;">
+							<h:outputLabel style="font-weight: bold;" value="Competencia: #{viewEvaluation.competence.name}" />
+							<h:outputLabel value="#{viewEvaluation.competence.description}" />
+						</h:panelGrid>
+					</fieldset>
+					<br />
+
+					<r:repeat value="#{viewEvaluation.behaviorsForCompetence}" var="b" rowKeyVar="bNum">
+						<r:panel header="#{b.name}">
+							<r:dataTable value="#{viewEvaluation.questionsForBehavior(b.id)}" var="q" rowKeyVar="qNum">
+								<r:column>
+									<f:facet name="header">#</f:facet>
+									<h:outputText value="#{bNum+1}.#{qNum+1}." />
+								</r:column>
+								<r:column style="width:400px">
+									<f:facet name="header">Afirmación</f:facet>
+									<h:outputText value="#{q.qtext}" />
+								</r:column>
+								<r:column>
+									<f:facet name="header">.</f:facet>
+									<h:selectOneRadio value="#{managedEvaluation.answers[q.qindex].nvalue}" rendered="#{!q.open}"
+										required="#{q.required}" requiredMessage="Q:#{bNum+1}.#{qNum+1} - #{msg.RAnswer}">
+										<f:selectItems value="#{scaleUtils.scaleList[q.scale]}" />
+									</h:selectOneRadio>
+									<h:inputTextarea value="#{managedEvaluation.answers[q.qindex].tvalue}" rendered="#{q.open}"
+										required="#{q.required}" requiredMessage="Q:#{bNum+1}.#{qNum+1} - #{msg.RAnswer}" cols="80" rows="5">
+										<f:validateLength maximum="500" />
+									</h:inputTextarea>
+								</r:column>
+							</r:dataTable>
+						</r:panel>
+						<br />
+					</r:repeat>
+
+					<r:commandButton value="Anterior" actionListener="#{viewEvaluation.prevQ}" rendered="#{ 0 != index}"
+						immediate="true" />
+					<r:commandButton value="Siquiente" actionListener="#{viewEvaluation.nextQ}" rendered="#{(index+1) != stop}" />
+					<r:commandButton value="Finalizar" actionListener="#{viewEvaluation.finish}" rendered="#{(index+1) == stop}" />
+				</r:region>
+			</r:outputPanel>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

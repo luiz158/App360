@@ -1,0 +1,46 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:r="http://richfaces.org">
+
+<ui:composition template="/templates/main.xhtml">
+	<ui:define name="content">
+	#{login.checkRole('admin')}
+	<h:form id="form" prependId="false">
+			<r:outputPanel ajaxRendered="true">
+				<r:region>
+
+					<r:panel header="Evaluadores" styleClass="centered">
+						<r:dataTable value="#{viewProgress.allEvaluators}" var="e" rowKeyVar="rowNum">
+							<r:column>
+								<f:facet name="header">#</f:facet>
+								<h:outputText value="#{rowNum+1}." />
+							</r:column>
+							<r:column>
+								<f:facet name="header">Nombre</f:facet>
+								<h:outputText value="#{e.fullName}" />
+							</r:column>
+							<r:column style="text-align:center;">
+								<f:facet name="header">Marca</f:facet>
+								<h:outputText value="#{e.brand.name}" />
+							</r:column>
+							<r:column style="text-align:center;">
+								<f:facet name="header">Hur</f:facet>
+								<h:outputText value="#{e.hurid}" />
+							</r:column>
+							<r:column>
+								<f:facet name="header">Cargo</f:facet>
+								<h:outputText value="#{e.position}" />
+							</r:column>
+							<r:column>
+								<f:facet name="header">Avance(%)</f:facet>
+								<h:outputText value="#{viewProgress.evaluatorProgress(e.id)}" />
+							</r:column>
+						</r:dataTable>
+					</r:panel>
+
+				</r:region>
+			</r:outputPanel>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

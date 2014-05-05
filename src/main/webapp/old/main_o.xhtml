@@ -1,0 +1,45 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:r="http://richfaces.org">
+
+<!-- The template for our app, defines some regions and imports styles -->
+
+<h:head>
+	<ui:insert name="head">
+		<ui:include src="sections_o/head.xhtml" />
+	</ui:insert>
+</h:head>
+<h:body>
+	<div class="wrapper primary">
+		<div class="container">
+			<div id="header" style="#{!loggedIn?'display: none;':''}">
+				<ui:insert name="header">
+					<ui:include src="sections_o/header.xhtml" />
+				</ui:insert>
+			</div>
+			<br />
+			<div id="sidebar" style="#{!loggedIn?'display: none;':''}">
+				<ui:insert name="sidebar">
+					<ui:include src="sections_o/sidebar.xhtml" />
+				</ui:insert>
+			</div>
+			<div id="content" style="#{!loggedIn?'margin: 200px; min-width: 400px;':''}">
+				<r:status onstart="#{r:component('statPane')}.show();" onstop="#{r:component('statPane')}.hide();" />
+				<r:popupPanel id="statPane" autosized="true" modal="true">
+					<h:graphicImage library="images" name="wait.gif" />
+				</r:popupPanel>
+				<ui:insert name="content" />
+			</div>
+			<br />
+		</div>
+	</div>
+	<div class="wrapper footer">
+		<div class="container">
+			<ui:insert name="footer">
+				<ui:include src="sections_o/footer.xhtml" />
+			</ui:insert>
+		</div>
+	</div>
+</h:body>
+</html>
+

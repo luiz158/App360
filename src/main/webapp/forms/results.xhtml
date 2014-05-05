@@ -1,0 +1,162 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:r="http://richfaces.org"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jstl/core">
+
+<ui:composition template="/templates/main.xhtml">
+	<ui:define name="content">
+		#{login.checkRole('admin')}
+		<r:notifyMessages stayTime="2000" />
+		<h:form id="form" prependId="false">
+			<r:outputPanel ajaxRendered="true">
+				<r:region>
+
+					<fieldset>
+						<legend>Resultado de evaluaciones:</legend>
+						<h:panelGrid columns="2">
+							<h:outputLabel value="Prueba" />
+							<h:selectOneMenu value="#{viewProgress.survey}">
+								<f:selectItem itemLabel="---" itemValue="---" noSelectionOption="true" />
+								<f:selectItems value="#{viewProgress.evaluationSurveys}" var="s" itemLabel="#{s.name}" itemValue="#{s}" />
+								<r:ajax event="change" execute="@form" />
+								<f:converter binding="#{converterForSurvey}" />
+							</h:selectOneMenu>
+							<h:outputLabel value="Pais:" />
+							<h:selectOneMenu value="#{viewProgress.country}">
+								<f:selectItem itemLabel="---" itemValue="---" noSelectionOption="true" />
+								<f:selectItems value="#{viewProgress.countriesForEvaluands}" var="c" itemLabel="#{c.name}" itemValue="#{c}" />
+								<r:ajax event="change" execute="@form" />
+								<f:converter binding="#{converterForCountry}" />
+							</h:selectOneMenu>
+							<h:outputLabel value="Marca:" />
+							<h:selectOneMenu value="#{viewProgress.brand}">
+								<f:selectItem itemLabel="---" itemValue="---" noSelectionOption="true" />
+								<f:selectItems value="#{viewProgress.brandsForEvaluands}" var="b" itemLabel="#{b.name}" itemValue="#{b}" />
+								<r:ajax event="change" execute="@form" />
+								<f:converter binding="#{converterForBrand}" />
+							</h:selectOneMenu>
+						</h:panelGrid>
+
+						<br />
+						<r:panel style="width: 280px;" styleClass="centered" rendered="#{!empty viewProgress.survey}">
+							<h:panelGrid columns="2">
+								<h:outputLabel value="Total:" />
+								<h:outputText value="#{viewProgress.getCountEvaluations(viewProgress.survey.id)}" />
+								<h:outputLabel value="Avance:" />
+								<r:progressBar value="#{viewProgress.getSurveyProgress(viewProgress.survey.id)}">
+									<h:outputText value="#{viewProgress.getSurveyProgress(viewProgress.survey.id)}" style="font-size: 10px;" />
+								</r:progressBar>
+							</h:panelGrid>
+							<h:commandLink action="/aforms/results.xhtml?faces-redirect=true" value="Resultados generales" target="_blank" />
+						</r:panel>
+						<br />
+
+						<r:tabPanel switchType="ajax">
+							<r:repeat value="#{viewProgress.evaluandStartLetters}" var="letter">
+								<r:tab header="#{letter}" switchType="ajax">
+									<r:dataTable value="#{viewProgress.getEvaluands(letter)}" var="e" rows="40" rowKeyVar="rowNum"
+										styleClass="centered">
+										<f:facet name="header">
+											<r:dataScroller boundaryControls="hide" fastControls="hide" />
+										</f:facet>
+										<r:column>
+											<f:facet name="header">#</f:facet>
+											<h:outputText value="#{rowNum+1}" />
+										</r:column>
+										<r:column>
+											<f:facet name="header">.</f:facet>
+											<r:commandLink>
+												<h:graphicImage library="images/icons" name="edit.gif" alt="Edit" />
+												<r:ajax event="click" execute="@this" listener="#{viewProgress.prep(e)}"
+													oncomplete="#{r:component('popup')}.show();" />
+											</r:commandLink>
+										</r:column>
+										<r:column>
+											<f:facet name="header">Nombre</f:facet>
+											<h:outputText value="#{e.fullName}" />
+										</r:column>
+										<r:column style="text-align:center;">
+											<f:facet name="header">Marca</f:facet>
+											<h:outputText value="#{e.brand.name}" />
+										</r:column>
+										<r:column style="text-align:center;">
+											<f:facet name="header">Hur</f:facet>
+											<h:outputText value="#{e.hurid}" />
+										</r:column>
+										<r:column>
+											<f:facet name="header">Cargo</f:facet>
+											<h:outputText value="#{e.position}" />
+										</r:column>
+										<r:column>
+											<f:facet name="header">Avance</f:facet>
+											<r:progressBar value="#{viewProgress.evaluandProgress(e.id)}">
+												<h:outputText value="#{viewProgress.evaluandProgress(e.id)}" style="font-size: 10px;" />
+											</r:progressBar>
+										</r:column>
+										<r:column rendered="#{!activeUser.activeRole.equals('admin')}">
+											<f:facet name="header">Web</f:facet>
+											<h:commandLink value="Ver" action="#{viewProgress.reportURL()}" target="_blank"
+												disabled="#{0 == viewProgress.evaluandProgress(e.id)}">
+												<f:setPropertyActionListener target="#{report360.survey}" value="#{viewProgress.survey}" />
+												<f:setPropertyActionListener target="#{report360.employee}" value="#{e}" />
+											</h:commandLink>
+										</r:column>
+									</r:dataTable>
+								</r:tab>
+							</r:repeat>
+						</r:tabPanel>
+					</fieldset>
+
+				</r:region>
+			</r:outputPanel>
+		</h:form>
+
+		<r:popupPanel id="popup" autosized="true" modal="true">
+			<h:form id="uForm">
+				<r:outputPanel ajaxRendered="true">
+					<r:region>
+						<h:outputLabel value="#{viewProgress.employee.fullName}" />
+						<hr />
+						<fieldset>
+							<legend>Evaluadores:</legend>
+							<r:dataTable value="#{viewProgress.evaluators}" var="e" rows="12" rowKeyVar="rowNum">
+								<f:facet name="header">
+									<r:dataScroller boundaryControls="hide" fastControls="hide" />
+								</f:facet>
+								<r:column>
+									<f:facet name="header">#</f:facet>
+									<h:outputText value="#{rowNum+1}." />
+								</r:column>
+								<r:column>
+									<f:facet name="header">Nombre</f:facet>
+									<h:outputText value="#{e.evaluator.fullName}" />
+								</r:column>
+								<r:column>
+									<f:facet name="header">C</f:facet>
+									<h:selectBooleanCheckbox value="#{e.completed}" disabled="true" />
+								</r:column>
+								<r:column rendered="#{activeUser.activeRole.contains('sadmin')}">
+									<f:facet name="header">.</f:facet>
+									<r:commandLink actionListener="#{viewAssignments.refreshEvaluation(e.id)}" execute="@this">
+										<h:graphicImage library="images/icons" name="reset.gif" alt="Refresh" />
+									</r:commandLink>
+									&nbsp;
+									<r:commandLink actionListener="#{viewAssignments.removeEvaluation(e.id)}" execute="@this">
+										<h:graphicImage library="images/icons" name="delete.gif" alt="Remove" />
+									</r:commandLink>
+								</r:column>
+							</r:dataTable>
+							<br />
+							<div style="text-align: center;">
+								<r:commandButton value="Cerrar" immediate="true">
+									<r:ajax execute="@this" listener="#{viewProgress.refresh}" oncomplete="#{r:component('popup')}.hide();" />
+								</r:commandButton>
+							</div>
+						</fieldset>
+					</r:region>
+				</r:outputPanel>
+			</h:form>
+		</r:popupPanel>
+	</ui:define>
+</ui:composition>
+</html>
