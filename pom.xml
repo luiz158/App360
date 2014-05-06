@@ -84,6 +84,12 @@
 			<artifactId>commons-codec</artifactId>
 			<version>1.9</version>
 		</dependency>
+		<!-- Import PrimeFaces 4.0 -->
+		<dependency>
+			<groupId>org.primefaces</groupId>
+			<artifactId>primefaces</artifactId>
+			<version>4.0</version>
+		</dependency>
 	</dependencies>
 
 	<profiles>
