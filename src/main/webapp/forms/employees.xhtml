@@ -64,18 +64,18 @@
 										<r:column>
 											<f:facet name="header">.</f:facet>
 											<r:commandLink disabled="true">
-												<h:graphicImage library="images/icons" name="edit.gif" alt="Edit" />
+												<h:graphicImage library="images/icons" name="edit.png" alt="Edit" />
 												<r:ajax event="click" execute="@this" listener="#{viewEmployee.load(u.id)}"
 													oncomplete="#{r:component('popup')}.show();" />
 											</r:commandLink>
 											&nbsp;
 											<r:commandLink actionListener="#{loginManager.resetEmployeePassword(e.doc_id)}" execute="@this">
-												<h:graphicImage library="images/icons" name="reset.gif" alt="Reset password" />
+												<h:graphicImage library="images/icons" name="lock.png" alt="Reset password" />
 											</r:commandLink>
 											&nbsp;
 											<r:commandLink actionListener="#{viewEmployee.remove(e.id)}" execute="@this"
 												rendered="#{activeUser.activeRole.contains('sadmin')}">
-												<h:graphicImage library="images/icons" name="delete.gif" alt="Remove" />
+												<h:graphicImage library="images/icons" name="remove.png" alt="Remove" />
 											</r:commandLink>
 										</r:column>
 									</r:dataTable>

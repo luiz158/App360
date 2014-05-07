@@ -138,11 +138,11 @@
 								<r:column rendered="#{activeUser.activeRole.contains('sadmin')}">
 									<f:facet name="header">.</f:facet>
 									<r:commandLink actionListener="#{viewAssignments.refreshEvaluation(e.id)}" execute="@this">
-										<h:graphicImage library="images/icons" name="reset.gif" alt="Refresh" />
+										<h:graphicImage library="images/icons" name="reset.png" alt="Refresh" />
 									</r:commandLink>
 									&nbsp;
 									<r:commandLink actionListener="#{viewAssignments.removeEvaluation(e.id)}" execute="@this">
-										<h:graphicImage library="images/icons" name="delete.gif" alt="Remove" />
+										<h:graphicImage library="images/icons" name="remove.png" alt="Remove" />
 									</r:commandLink>
 								</r:column>
 							</r:dataTable>
