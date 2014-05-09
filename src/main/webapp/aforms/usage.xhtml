@@ -14,18 +14,19 @@
 							<h:outputLabel value="Logged users:" />
 							<h:outputLabel value="#{usageMonitor.loggedUsers}" />
 						</h:panelGrid>
+						<hr />
 						<h:commandButton action="/error/logout" value="Login" />
 					</r:panel>
 					<br />
-					
+
 					<r:panel header="Last logins" styleClass="centered" style="width: 800px">
 						<r:dataTable value="#{usageMonitor.latestUsers}" var="u" rowKeyVar="rowNum" styleClass="centered"
 							style="width: 780px">
-							<r:column>
+							<r:column styleClass="tcentered">
 								<f:facet name="header">#</f:facet>
 								<h:outputText value="#{rowNum+1}." />
 							</r:column>
-							<r:column>
+							<r:column styleClass="tcentered">
 								<f:facet name="header">In</f:facet>
 								<h:selectBooleanCheckbox disabled="true" value="#{u.lastLogin > u.lastLogout}" />
 							</r:column>
@@ -33,7 +34,7 @@
 								<f:facet name="header">Username</f:facet>
 								<h:outputText value="#{u.username}" />
 							</r:column>
-							<r:column>
+							<r:column styleClass="tcentered">
 								<f:facet name="header">Name</f:facet>
 								<h:outputText value="#{u.name}" />
 							</r:column>
@@ -52,7 +53,7 @@
 						</r:dataTable>
 					</r:panel>
 					<br />
-					
+
 					<r:panel header="Progress" styleClass="centered" style="width: 800px">
 						<r:dataGrid columns="3" value="#{usageMonitor.activeSurveys}" var="s" styleClass="centered">
 							<r:panel styleClass="tcentered">
