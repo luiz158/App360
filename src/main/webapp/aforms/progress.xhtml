@@ -9,8 +9,9 @@
 			<r:outputPanel ajaxRendered="true">
 				<r:region>
 
-					<r:panel header="Evaluadores" styleClass="centered">
-						<r:dataTable value="#{viewProgress.allEvaluators}" var="e" rowKeyVar="rowNum">
+					<r:panel header="Evaluadores" styleClass="centered" style="width: 800px">
+						<r:dataTable value="#{viewProgress.allEvaluators}" var="e" rowKeyVar="rowNum" styleClass="centered"
+							style="width: 780px">
 							<r:column>
 								<f:facet name="header">#</f:facet>
 								<h:outputText value="#{rowNum+1}." />

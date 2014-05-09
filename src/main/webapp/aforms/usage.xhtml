@@ -8,17 +8,19 @@
 			<r:poll interval="180000" enabled="true" render="@form" />
 			<r:outputPanel ajaxRendered="true">
 				<r:region>
+
 					<r:panel style="width: 140px;" styleClass="centered tcentered">
 						<h:panelGrid columns="2">
 							<h:outputLabel value="Logged users:" />
 							<h:outputLabel value="#{usageMonitor.loggedUsers}" />
 						</h:panelGrid>
-						<h:commandButton action="/error/logout" image="/resources/images/icons/reset.gif" />
+						<h:commandButton action="/error/logout" value="Login" />
 					</r:panel>
-
 					<br />
-					<r:panel header="Last logins" styleClass="centered">
-						<r:dataTable style="margin: 0px auto;" value="#{usageMonitor.latestUsers}" var="u" rowKeyVar="rowNum">
+					
+					<r:panel header="Last logins" styleClass="centered" style="width: 800px">
+						<r:dataTable value="#{usageMonitor.latestUsers}" var="u" rowKeyVar="rowNum" styleClass="centered"
+							style="width: 780px">
 							<r:column>
 								<f:facet name="header">#</f:facet>
 								<h:outputText value="#{rowNum+1}." />
@@ -27,7 +29,7 @@
 								<f:facet name="header">In</f:facet>
 								<h:selectBooleanCheckbox disabled="true" value="#{u.lastLogin > u.lastLogout}" />
 							</r:column>
-							<r:column style="text-align:center;">
+							<r:column styleClass="tcentered">
 								<f:facet name="header">Username</f:facet>
 								<h:outputText value="#{u.username}" />
 							</r:column>
@@ -35,13 +37,13 @@
 								<f:facet name="header">Name</f:facet>
 								<h:outputText value="#{u.name}" />
 							</r:column>
-							<r:column style="text-align:center;">
+							<r:column styleClass="tcentered">
 								<f:facet name="header">Last login</f:facet>
 								<h:outputText value="#{u.lastLogin}">
 									<f:converter binding="#{converterForDate}" />
 								</h:outputText>
 							</r:column>
-							<r:column style="text-align:center;">
+							<r:column styleClass="tcentered">
 								<f:facet name="header">Last logout</f:facet>
 								<h:outputText value="#{u.lastLogout}">
 									<f:converter binding="#{converterForDate}" />
@@ -49,11 +51,11 @@
 							</r:column>
 						</r:dataTable>
 					</r:panel>
-
 					<br />
-					<r:panel header="Progress" styleClass="centered">
-						<r:dataGrid columns="3" style="margin: 0px auto;" value="#{usageMonitor.activeSurveys}" var="s">
-							<r:panel style="text-align: center;">
+					
+					<r:panel header="Progress" styleClass="centered" style="width: 800px">
+						<r:dataGrid columns="3" value="#{usageMonitor.activeSurveys}" var="s" styleClass="centered">
+							<r:panel styleClass="tcentered">
 								<h:panelGrid columns="1">
 									<h:outputText value="Survey:#{s.id} - Evals: #{usageMonitor.getCountEvaluations(s.id)}" />
 									<r:progressBar value="#{usageMonitor.getSurveyProgress(s.id)}">
@@ -63,6 +65,7 @@
 							</r:panel>
 						</r:dataGrid>
 					</r:panel>
+
 				</r:region>
 			</r:outputPanel>
 		</h:form>
