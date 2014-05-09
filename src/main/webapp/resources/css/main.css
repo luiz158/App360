@@ -9,6 +9,9 @@ p {
 }
 
 .centered {
-	display: block;
+	/* 	display: block; */
 	margin: 0px auto;
 }
+
+.tcentered {
+	/* 	display: block; */
