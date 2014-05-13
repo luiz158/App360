@@ -95,6 +95,10 @@ public class ViewUsers implements Serializable {
 		managedUser.setActiveRole(managedUser.getAppRole(appName));
 	}
 
+	public void newInstance() {
+		managedUser = new AppUser();
+	}
+
 	public void refresh() throws Exception {
 		managedUser = null;
 	}
