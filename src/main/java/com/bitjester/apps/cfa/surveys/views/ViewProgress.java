@@ -196,7 +196,7 @@ public class ViewProgress implements Serializable {
 	public void reportURL(Long emp_id) {
 		FacesUtil.getFlash().put("survey",survey.getId());
 		FacesUtil.getFlash().put("employee", emp_id);
-		FacesUtil.navTo("/reports/report" + survey.getId() + ".xhtml");
+		FacesUtil.navTo("reports/report" + survey.getId() + ".xhtml");
 	}
 
 	@RequestScoped
