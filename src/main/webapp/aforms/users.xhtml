@@ -11,7 +11,7 @@
 				<r:region>
 
 					<h2 class="tcentered">Users</h2>
-					<r:commandButton action="#{viewUsers.provisionUsers}"  value="Provision users" />
+					<r:commandButton action="#{viewUsers.provisionUsers}" value="Provision evaluators" styleClass="centered tcentered" />
 					<r:tabPanel styleClass="centered" style="width: 800px;">
 						<r:repeat value="#{viewUsers.userStartLetters}" var="letter">
 							<r:tab header="#{letter}" switchType="ajax">
