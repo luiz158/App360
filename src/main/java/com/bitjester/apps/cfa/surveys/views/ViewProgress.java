@@ -15,6 +15,7 @@ import com.bitjester.apps.cfa.entities.Country;
 import com.bitjester.apps.cfa.hhrr.entities.Employee;
 import com.bitjester.apps.cfa.surveys.entities.Evaluation;
 import com.bitjester.apps.cfa.surveys.entities.Survey;
+import com.bitjester.apps.common.utils.FacesUtil;
 
 @Named
 @SessionScoped
@@ -192,8 +193,10 @@ public class ViewProgress implements Serializable {
 		return Float.parseFloat(new DecimalFormat("#.##").format(100.0F * completed / assigned));
 	}
 
-	public String reportURL() {
-		return "/reports/report" + survey.getId() + ".xhtml";
+	public void reportURL(Long emp_id) {
+		FacesUtil.getFlash().put("survey",survey.getId());
+		FacesUtil.getFlash().put("employee", emp_id);
+		FacesUtil.navTo("/reports/report" + survey.getId() + ".xhtml");
 	}
 
 	@RequestScoped

@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.text.DecimalFormat;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -18,6 +19,7 @@ import com.bitjester.apps.cfa.surveys.entities.Behavior;
 import com.bitjester.apps.cfa.surveys.entities.Competence;
 import com.bitjester.apps.cfa.surveys.entities.Question;
 import com.bitjester.apps.cfa.surveys.entities.Survey;
+import com.bitjester.apps.common.utils.FacesUtil;
 
 @Named
 @RequestScoped
@@ -29,6 +31,12 @@ public class Report360 implements Serializable {
 
 	private Employee employee;
 	private Survey survey;
+
+	@PostConstruct
+	private void init() {
+		employee = em.find(Employee.class, FacesUtil.getFlash().get("employee"));
+		survey = em.find(Survey.class, FacesUtil.getFlash().get("survey"));
+	}
 
 	public List<Competence> getCompetencies() throws Exception {
 		String query = "FROM Competence WHERE id IN (";
@@ -157,16 +165,8 @@ public class Report360 implements Serializable {
 		return employee;
 	}
 
-	public void setEmployee(Employee employee) {
-		this.employee = employee;
-	}
-
 	public Survey getSurvey() {
 		return survey;
-	}
-
-	public void setSurvey(Survey survey) {
-		this.survey = survey;
 	}
 
 	// ================================

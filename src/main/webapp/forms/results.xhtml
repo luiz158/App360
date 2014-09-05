@@ -95,11 +95,8 @@
 										</r:column>
 										<r:column rendered="#{!activeUser.activeRole.equals('admin')}">
 											<f:facet name="header">Web</f:facet>
-											<h:commandLink value="Ver" action="#{viewProgress.reportURL()}" target="_blank"
-												disabled="#{0 == viewProgress.evaluandProgress(e.id)}">
-												<f:setPropertyActionListener target="#{report360.survey}" value="#{viewProgress.survey}" />
-												<f:setPropertyActionListener target="#{report360.employee}" value="#{e}" />
-											</h:commandLink>
+											<h:commandLink value="Ver" action="#{viewProgress.reportURL(e.id)}" target="_blank"
+												disabled="#{0 == viewProgress.evaluandProgress(e.id)}" />
 										</r:column>
 									</r:dataTable>
 								</r:tab>
