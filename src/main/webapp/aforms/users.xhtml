@@ -1,8 +1,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core" xmlns:r="http://richfaces.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:r="http://richfaces.org">
 
 <ui:composition template="/templates/main.xhtml">
 	<ui:define name="content">
@@ -11,19 +9,17 @@
 		<h:form id="form" prependId="false">
 			<r:outputPanel ajaxRendered="true">
 				<r:region>
-				
+
 					<div class="tcentered">
-						<r:commandButton action="#{viewUsers.provisionUsers}"
-							value="Provision evaluators" />
+						<r:commandButton action="#{viewUsers.provisionUsers}" value="Provision evaluators" />
 					</div>
 					<br />
-					
+
 					<h2 class="tcentered">Users</h2>
 					<r:tabPanel styleClass="centered" style="width: 800px;">
 						<r:repeat value="#{viewUsers.userStartLetters}" var="letter">
 							<r:tab header="#{letter}" switchType="ajax">
-								<r:dataTable value="#{viewUsers.getUsersForLetter(letter)}"
-									var="u" rowKeyVar="rowNum" styleClass="centered"
+								<r:dataTable value="#{viewUsers.getUsersForLetter(letter)}" var="u" rowKeyVar="rowNum" styleClass="centered"
 									style="width: 780px;">
 									<r:column styleClass="tcentered">
 										<f:facet name="header">#</f:facet>
@@ -55,38 +51,27 @@
 									</r:column>
 									<r:column styleClass="tcentered">
 										<f:facet name="header">MCP</f:facet>
-										<h:selectBooleanCheckbox value="#{u.mustChangePassword}"
-											disabled="true" />
+										<h:selectBooleanCheckbox value="#{u.mustChangePassword}" disabled="true" />
 									</r:column>
 									<r:column styleClass="tcentered">
 										<f:facet name="header">.</f:facet>
 										<r:commandLink>
-											<h:graphicImage library="images/icons" name="edit.png"
-												alt="Edit" />
-											<r:ajax event="click" execute="@this"
-												listener="#{viewUsers.load(u.id)}"
+											<h:graphicImage library="images/icons" name="edit.png" alt="Edit" />
+											<r:ajax event="click" execute="@this" listener="#{viewUsers.load(u.id)}"
 												oncomplete="#{r:component('popup')}.show();" />
 										</r:commandLink>
 										&nbsp;
-										<r:commandLink actionListener="#{viewUsers.remove(u.id)}"
-											execute="@this">
-											<h:graphicImage library="images/icons" name="remove.png"
-												alt="Delete" />
+										<r:commandLink actionListener="#{viewUsers.remove(u.id)}" execute="@this">
+											<h:graphicImage library="images/icons" name="remove.png" alt="Delete" />
 										</r:commandLink>
 										&nbsp;
-										<r:commandLink
-											actionListener="#{appSession.impersonate(u.id)}"
-											execute="@this"
+										<r:commandLink actionListener="#{appSession.impersonate(u.id)}" execute="@this"
 											rendered="#{systemUser.activeRole == 'sadmin'}">
-											<h:graphicImage library="images/icons" name="man.png"
-												alt="Impersonate" />
+											<h:graphicImage library="images/icons" name="man.png" alt="Impersonate" />
 										</r:commandLink>
 										&nbsp;
-										<r:commandLink
-											actionListener="#{loginManager.resetPassword(u.id)}"
-											execute="@this">
-											<h:graphicImage library="images/icons" name="lock.png"
-												alt="Reset password" />
+										<r:commandLink actionListener="#{loginManager.resetPassword(u.id)}" execute="@this">
+											<h:graphicImage library="images/icons" name="unlock.png" alt="Reset password" />
 										</r:commandLink>
 									</r:column>
 								</r:dataTable>
@@ -106,21 +91,16 @@
 							<legend>User form:</legend>
 							<h:panelGrid columns="2">
 								<h:outputLabel value="Username:" />
-								<h:inputText size="40" value="#{managedUser.username}"
-									required="true" />
+								<h:inputText size="40" value="#{managedUser.username}" required="true" />
 								<h:outputLabel value="Name:" />
-								<h:inputText size="40" value="#{managedUser.name}"
-									required="true" />
+								<h:inputText size="40" value="#{managedUser.name}" required="true" />
 								<h:outputLabel value="Active:" />
 								<h:selectBooleanCheckbox value="#{managedUser.active}" />
 								<h:outputLabel value="MCP:" />
-								<h:selectBooleanCheckbox
-									value="#{managedUser.mustChangePassword}" />
+								<h:selectBooleanCheckbox value="#{managedUser.mustChangePassword}" />
 								<h:outputLabel value="Role:" />
-								<h:selectOneMenu value="#{managedUser.activeRole}"
-									required="true">
-									<f:selectItem itemLabel="---" itemValue="---"
-										noSelectionOption="true" />
+								<h:selectOneMenu value="#{managedUser.activeRole}" required="true">
+									<f:selectItem itemLabel="---" itemValue="---" noSelectionOption="true" />
 									<f:selectItem itemLabel="Admin" itemValue="admin" />
 									<f:selectItem itemLabel="Admin II" itemValue="admin2" />
 									<f:selectItem itemLabel="Super Admin" itemValue="sadmin" />
@@ -133,8 +113,7 @@
 										oncomplete="if(#{empty facesContext.maximumSeverity}) {#{r:component('popup')}.hide();}" />
 								</r:commandButton>
 								<r:commandButton value="Cancel" immediate="true">
-									<r:ajax execute="@this" listener="#{viewUsers.refresh}"
-										oncomplete="#{r:component('popup')}.hide();" />
+									<r:ajax execute="@this" listener="#{viewUsers.refresh}" oncomplete="#{r:component('popup')}.hide();" />
 								</r:commandButton>
 							</div>
 						</fieldset>
