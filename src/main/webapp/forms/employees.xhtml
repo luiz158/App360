@@ -34,7 +34,8 @@
 						<r:tabPanel switchType="ajax">
 							<r:repeat value="#{viewEmployee.employeeStartLetters}" var="letter">
 								<r:tab header="#{letter}" switchType="ajax">
-									<r:dataTable value="#{viewEmployee.employeesForLetter(letter)}" var="e" rows="40" rowKeyVar="rowNum">
+									<r:dataTable value="#{viewEmployee.employeesForLetter(letter)}" var="e" rows="40" rowKeyVar="rowNum"
+										styleClass="centered">
 										<f:facet name="header">
 											<r:dataScroller boundaryControls="hide" fastControls="hide" />
 										</f:facet>
@@ -71,7 +72,7 @@
 											</r:commandLink>
 											&nbsp;
 											<r:commandLink actionListener="#{loginManager.resetEmployeePassword(e.doc_id)}" execute="@this">
-												<h:graphicImage library="images/icons" name="lock.png" alt="Reset password" />
+												<h:graphicImage library="images/icons" name="unlock.png" alt="Reset password" />
 											</r:commandLink>
 											&nbsp;
 											<r:commandLink actionListener="#{viewEmployee.remove(e.id)}" execute="@this"
