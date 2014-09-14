@@ -36,6 +36,7 @@ public class Report360 implements Serializable {
 	private void init() {
 		employee = em.find(Employee.class, FacesUtil.getFlash().get("employee"));
 		survey = em.find(Survey.class, FacesUtil.getFlash().get("survey"));
+		FacesUtil.getFlash().clear();
 	}
 
 	public List<Competence> getCompetencies() throws Exception {
