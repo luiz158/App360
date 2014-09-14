@@ -13,11 +13,11 @@
 				<r:region>
 
 					<h2 class="tcentered">Users</h2>
-					<div class="tcentered">
-						<r:commandButton action="#{viewUsers.provisionUsers}"
-							value="Provision evaluators" />
-					</div>
 					<r:tabPanel styleClass="centered" style="width: 800px;">
+						<div class="tcentered">
+							<r:commandButton action="#{viewUsers.provisionUsers}"
+								value="Provision evaluators" />
+						</div>
 						<r:repeat value="#{viewUsers.userStartLetters}" var="letter">
 							<r:tab header="#{letter}" switchType="ajax">
 								<r:dataTable value="#{viewUsers.getUsersForLetter(letter)}"
