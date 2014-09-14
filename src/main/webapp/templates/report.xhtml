@@ -3,11 +3,13 @@
 	xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core">
 
 <h:head>
+	<title>#{appName}</title>
 	<ui:insert name="head">
 		<h:outputStylesheet library="css" name="main.css" />
 		<h:outputStylesheet library="css" name="print.css" media="print" />
 	</ui:insert>
 </h:head>
+
 <h:body style="background-color: white;">
 	<div class="wrapper primary" style="background-color: white;">
 		<div class="container" style="background-color: white;">
@@ -19,9 +21,7 @@
 	</div>
 	<div class="wrapper footer">
 		<div class="container">
-			<ui:insert name="footer">
-				
-			</ui:insert>
+			<ui:insert name="footer" />
 		</div>
 	</div>
 </h:body>
