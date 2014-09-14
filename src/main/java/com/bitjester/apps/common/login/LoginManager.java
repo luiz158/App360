@@ -60,7 +60,7 @@ public class LoginManager {
 
 	public void resetEmployeePassword(String username) throws Exception {
 		try {
-			String query = "FROM User WHERE username='" + username + "'";
+			String query = "FROM AppUser WHERE username='" + username + "'";
 			AppUser user = em.createQuery(query, AppUser.class).getSingleResult();
 			resetPassword(user.getId());
 			FacesUtil.addMessage("La contraseña fue restablecida.");
