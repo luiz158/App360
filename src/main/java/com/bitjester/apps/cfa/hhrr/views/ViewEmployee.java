@@ -163,7 +163,7 @@ public class ViewEmployee implements Serializable {
 	// ================================
 	// ======= Employee Methods =======
 	// ================================
-
+/*
 	@Named
 	@Produces
 	public Employee getManagedEmployee() {
@@ -177,7 +177,7 @@ public class ViewEmployee implements Serializable {
 	public void load(Long id) throws Exception {
 		managedEmployee = em.find(Employee.class, id);
 	}
-
+*/
 	public void remove(Long id) throws Exception {
 		Employee employee = em.find(Employee.class, id);
 		if (null != employee) {
