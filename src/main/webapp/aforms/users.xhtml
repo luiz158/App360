@@ -19,8 +19,7 @@
 					<r:tabPanel styleClass="centered">
 						<r:repeat value="#{viewUsers.userStartLetters}" var="letter">
 							<r:tab header="#{letter}" switchType="ajax">
-								<r:dataTable value="#{viewUsers.getUsersForLetter(letter)}" var="u" rowKeyVar="rowNum" styleClass="centered"
-									style="width: 780px;">
+								<r:dataTable value="#{viewUsers.getUsersForLetter(letter)}" var="u" rowKeyVar="rowNum" styleClass="centered">
 									<r:column styleClass="tcentered">
 										<f:facet name="header">#</f:facet>
 										<h:outputText value="#{rowNum+1}." />
