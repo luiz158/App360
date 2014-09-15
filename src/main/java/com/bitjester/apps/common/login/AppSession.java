@@ -87,27 +87,27 @@ public class AppSession implements Serializable {
 				FacesUtil.navTo("aforms/password.xhtml");
 			// If user has already changed the password.
 			systemUser.setActiveRole(systemUser.getAppRole(appName));
-			FacesUtil.addMessage("Welcome, " + systemUser.getName());
+			FacesUtil.addMessage("Bienvenido, " + systemUser.getName());
 		} else
-			FacesUtil.addMessage("Wrong credentials.");
+			FacesUtil.addMessage("Credencials equivocadas.");
 	}
 
 	public void changePassword() throws Exception {
 		// Verify if current password matches the one on the database
 		if (!systemUser.getPassword().equals(HashUtil.calc_HashSHA(creds.getPassword()))) {
-			FacesUtil.addMessage("Current password is incorrect.");
+			FacesUtil.addMessage("Clave actual es distinta a la especificada.");
 			return;
 		}
 
 		// Verify if newPassword1 is the same as newPassword2
 		if (!creds.getNewPass1().equals(creds.getNewPass2())) {
-			FacesUtil.addMessage("New password fields must match.");
+			FacesUtil.addMessage("Ambos campos de la nueva contraseña debe coincidir.");
 			return;
 		}
 
 		// Verify if new password is different from current password
 		if (creds.getPassword().equals(creds.getNewPass1())) {
-			FacesUtil.addMessage("New password must be different from old password.");
+			FacesUtil.addMessage("La nueva clave debe ser diferente a la anterior.");
 			return;
 		}
 
@@ -128,7 +128,7 @@ public class AppSession implements Serializable {
 		// If not impersonating - we end the session.
 		if (null != systemUser) {
 			lm.logOutUser(systemUser);
-			FacesUtil.addMessage("Good bye, " + systemUser.getName());
+			FacesUtil.addMessage("Adios, " + systemUser.getName());
 		}
 		systemUser = null;
 		activeUser = null;

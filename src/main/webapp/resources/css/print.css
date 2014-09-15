@@ -18,3 +18,19 @@ p {
 	margin: 0px auto;
 	text-align: center;
 }
+
+.pageBreakAuto {
+	display: block;
+	page-break-after: auto;
+	page-break-before: auto;
+}
+
+.pageBreakAfter {
+	display: block;
+	page-break-after: always;
+}
+
+.startAdjustment {
+	height: 450px;
+	line-height: 500px;
+}

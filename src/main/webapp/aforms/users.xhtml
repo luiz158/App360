@@ -16,7 +16,7 @@
 					<br />
 
 					<h2 class="tcentered">Users</h2>
-					<r:tabPanel styleClass="centered" style="width: 800px;">
+					<r:tabPanel styleClass="centered">
 						<r:repeat value="#{viewUsers.userStartLetters}" var="letter">
 							<r:tab header="#{letter}" switchType="ajax">
 								<r:dataTable value="#{viewUsers.getUsersForLetter(letter)}" var="u" rowKeyVar="rowNum" styleClass="centered"
