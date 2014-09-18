@@ -22,6 +22,7 @@ public class Question extends BaseEntity {
 	private Behavior behavior;
 	private Integer qindex;
 	private Integer scale;
+	private Integer weight;
 	private Boolean open;
 	private Boolean required;
 	private String qtext;
@@ -58,6 +59,14 @@ public class Question extends BaseEntity {
 
 	public void setScale(Integer scale) {
 		this.scale = scale;
+	}
+
+	public Integer getWeight() {
+		return weight;
+	}
+
+	public void setWeight(Integer weight) {
+		this.weight = weight;
 	}
 
 	public Boolean getOpen() {
