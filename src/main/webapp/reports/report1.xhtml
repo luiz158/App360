@@ -1,6 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:c="http://java.sun.com/jstl/core" xmlns:p="http://primefaces.org/ui">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jstl/core" xmlns:p="http://primefaces.org/ui">
 
 <ui:composition template="/templates/report.xhtml">
 	<ui:define name="content">
@@ -87,7 +88,7 @@
 							</h:panelGrid>
 						</p:panel>
 						<p:panel>
-							<p:barChart value="#{report360.getBehaviorBC(behavior.id)}" min="0" max="5" shadow="false"
+							<p:barChart value="#{report360.getBehaviorBC(behavior.id)}" min="1" max="6" shadow="false"
 								style="width:360px; height:100px;" orientation="horizontal" barMargin="5" barPadding="5" />
 						</p:panel>
 					</h:panelGrid>

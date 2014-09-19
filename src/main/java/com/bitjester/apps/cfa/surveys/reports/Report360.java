@@ -34,6 +34,7 @@ public class Report360 implements Serializable {
 
 	@PostConstruct
 	private void init() {
+		//System.out.println("Map2: " + FacesUtil.getFlash().toString());
 		employee = em.find(Employee.class, FacesUtil.getFlash().get("employee"));
 		survey = em.find(Survey.class, FacesUtil.getFlash().get("survey"));
 		FacesUtil.getFlash().clear();
