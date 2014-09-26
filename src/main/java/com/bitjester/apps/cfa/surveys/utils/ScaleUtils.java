@@ -28,11 +28,12 @@ public class ScaleUtils {
 
 		// --- Set values for Scale: 0
 		temp = new LinkedHashMap<String, Object>();
-		temp.put("No sabe / no aplica", "0");
-		temp.put("Nunca", "1");
-		temp.put("Rara vez", "2");
-		temp.put("Generalmente", "3");
-		temp.put("Siempre", "4");
+		temp.put("No cumple las expectativas", "1");
+		temp.put("Eventualmente cumple las expectativas", "2");
+		temp.put("Cumple todas las expectativas", "3");
+		temp.put("Cumple las expectativas y ocasionalmente las excede", "4");
+		temp.put("Cumple las expectativas y frecuentemente las excede", "5");
+		temp.put("Siempre cumple y excede todas las expectativas", "6");
 		scaleList.add(temp);
 		
 		temp = new LinkedHashMap<String, Object>();
