@@ -20,7 +20,7 @@ public class Competence extends BaseEntity {
 
 	private String name;
 	private String description;
-	private String html_style;
+	private String css;
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "competence", orphanRemoval = true)
 	@OrderBy("name")
 	private List<Behavior> behaviors = new ArrayList<Behavior>(0);
@@ -43,12 +43,12 @@ public class Competence extends BaseEntity {
 		this.description = description;
 	}
 
-	public String getHtml_style() {
-		return html_style;
+	public String getCss() {
+		return css;
 	}
 
-	public void setHtml_style(String html_style) {
-		this.html_style = html_style;
+	public void setCss(String css) {
+		this.css = css;
 	}
 
 	public List<Behavior> getBehaviors() {
