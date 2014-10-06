@@ -30,7 +30,9 @@ public class DefaultUsers {
 	private void checkForUsers() {
 		logger.info("Starting application: " + appName + ".");
 		try {
-			checkForUser("admon", "Administrator User");
+			checkForUser("admon", "Administrator user");
+			checkForUser("luis", "Luis Garcia");
+			checkForUser("test", "Test user");
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}

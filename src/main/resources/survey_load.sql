@@ -78,7 +78,7 @@ UPDATE behaviors SET create_time=now(), create_User='0 - System', version=0 WHER
 -- Insert Surveys
 INSERT INTO surveys (name, description, active) VALUES
 	('Evaluación 360L [2014]','Evaluación 360L [2014]',TRUE),
-	('Evaluación 360N [2014]','Evaluación 360N [2014]',TRUE),
+	('Evaluación 360N [2014]','Evaluación 360N [2014]',TRUE);
 UPDATE surveys SET create_time=now(), create_User='0 - System', version=0 WHERE id > 0;
 
 ---------------------------------------
@@ -223,7 +223,7 @@ INSERT INTO questions (behavior, qindex, weight, qtext) VALUES
 (27,51,3,'Trabaja de forma ordenada y organizada'),
 (28,52,0,'Cometarios y/o sugerencias con respecto a esta competencia evaluada'),
 (29,53,0,'Mencione las fortalezas que permiten al evaluado ser efectivo en su trabajo.'),
-(29,54,0,'Cuáles son las áreas de oportunidad en que deberá enfocarse el evaluado para mejorar su gestión'),
+(29,54,0,'Cuáles son las áreas de oportunidad en que deberá enfocarse el evaluado para mejorar su gestión');
 
 -- Set survey for 2nd set of questions.
 UPDATE questions SET open=FALSE, required=TRUE, scale=0, survey=2  WHERE survey IS NULL;
