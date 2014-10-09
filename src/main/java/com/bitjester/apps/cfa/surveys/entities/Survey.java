@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.Cacheable;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderColumn;
 import javax.persistence.Table;
@@ -21,7 +22,7 @@ public class Survey extends BaseEntity {
 	private String description;
 	private Boolean active = Boolean.FALSE;
 
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "survey", orphanRemoval = true)
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "survey", orphanRemoval = true)
 	@OrderColumn(name = "qindex")
 	private List<Question> questions;
 
@@ -35,7 +36,7 @@ public class Survey extends BaseEntity {
 	// --- Methods ---//
 	// --- QUestion Methods ---//
 	// Direction (dir): -1 = Up, 1 = Down
-	private void shitQuestion(int dir, Question q) {
+	private void shiftQuestion(int dir, Question q) {
 		int index = questions.indexOf(q);
 		questions.remove(q);
 		questions.add(index + dir, q);
@@ -43,11 +44,11 @@ public class Survey extends BaseEntity {
 	}
 
 	public void shiftQuestionUp(Question q) {
-		shitQuestion(-1, q);
+		shiftQuestion(-1, q);
 	}
 
 	public void shiftQuestionDown(Question q) {
-		shitQuestion(1, q);
+		shiftQuestion(1, q);
 	}
 
 	private void reOrderIndex() {

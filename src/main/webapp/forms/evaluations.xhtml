@@ -50,9 +50,7 @@
 								</r:column>
 								<r:column>
 									<f:facet name="header">.</f:facet>
-									<r:commandButton value="Evaluar" action="evaluation">
-										<f:setPropertyActionListener target="#{viewEvaluation.managedEvaluation}" value="#{e}" />
-									</r:commandButton>
+									<r:commandButton value="Evaluar" action="#{viewPending.evalURL(e.id)}" />
 								</r:column>
 							</r:dataTable>
 						</r:collapsiblePanel>

@@ -12,6 +12,7 @@ import javax.persistence.EntityManager;
 import com.bitjester.apps.cfa.surveys.entities.Evaluation;
 import com.bitjester.apps.cfa.surveys.entities.Survey;
 import com.bitjester.apps.common.login.AppSession;
+import com.bitjester.apps.common.utils.FacesUtil;
 import com.bitjester.apps.common.entities.AppUser;
 
 @Named
@@ -49,5 +50,10 @@ public class ViewPending implements Serializable {
 		query += " AND survey.id=" + survey + " AND completed=FALSE";
 		query += " ORDER BY evaluand.lname, evaluand.fname";
 		return em.createQuery(query, Evaluation.class).getResultList();
+	}
+	
+	public void evalURL(Long eval_id){
+		FacesUtil.getFlash().put("evaluation", eval_id);
+		FacesUtil.navTo("forms/evaluation.xhtml");
 	}
 }

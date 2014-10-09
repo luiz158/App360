@@ -239,5 +239,20 @@ UPDATE questions SET open=TRUE, required=FALSE, scale=NULL WHERE behavior IN (5,
 ---------------------------------------
 -- END: Surveys -----------------------
 ---------------------------------------
+INSERT INTO brands (name) VALUES ('CFA');
+INSERT INTO countries (name) VALUES ('El Salvador');
+---------------------------------------
+-- Test Employees ---------------------
+---------------------------------------
+
+INSERT INTO employees (fname, lname, position, hurid, doc_id, brand, country, boss) VALUES ('Nombre 1','G_Apellido1','Cargo 1','HUR_1','DUI_1',3,1,NULL);
+INSERT INTO employees (fname, lname, position, hurid, doc_id, brand, country, boss) VALUES ('Nombre 2','Y_Apellido2','Cargo 2','HUR_2','DUI_2',3,2,1);
+UPDATE employees SET active=TRUE, create_time=now(), create_User='0 - System', version=0 WHERE id > 0;
+
+INSERT INTO evaluations (survey,evaluator,evaluand,completed) VALUES (1,1,1,FALSE);
+INSERT INTO evaluations (survey,evaluator,evaluand,completed) VALUES (1,1,2,FALSE);
+INSERT INTO evaluations (survey,evaluator,evaluand,completed) VALUES (2,2,1,FALSE);
+INSERT INTO evaluations (survey,evaluator,evaluand,completed) VALUES (2,2,2,FALSE);
+UPDATE evaluations SET create_time=now(), create_User='0 - System', version=0 WHERE id > 0;
 
 COMMIT;
