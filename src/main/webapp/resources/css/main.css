@@ -20,3 +20,10 @@ p {
 	margin: 0px auto;
 	text-align: center;
 }
+
+.floatingDIV {
+	position: fixed;
+    /* bottom: 20px; --- for footer */
+    left:50px;
+    top: 50px;
+}

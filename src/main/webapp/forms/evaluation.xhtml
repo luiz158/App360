@@ -10,7 +10,7 @@
 		<h:form id="form" prependId="false" rendered="#{loggedIn}">
 			<r:outputPanel ajaxRendered="true">
 				<r:region>
-					<fieldset class="centered" style="position: fixed; top: 50px; left: 50px; #{viewEvaluation.competence.css}">
+					<fieldset class="floatingDIV" style="#{viewEvaluation.competence.css}">
 						<h:panelGrid columns="1" style="color: white; ">
 							<h:outputLabel style="font-weight: bold;" value="Evaluando a: " />
 							<h:outputLabel value="#{managedEvaluation.evaluand.fullName}" />
@@ -20,6 +20,7 @@
 						<div style="margin: 5px; text-align: center;">
 							<r:commandButton value="Anterior" actionListener="#{viewEvaluation.prevQ}" rendered="#{ 0 != index}"
 								immediate="true" />
+							&nbsp;
 							<r:commandButton value="Siquiente" actionListener="#{viewEvaluation.nextQ}" rendered="#{(index+1) != stop}" />
 							<r:commandButton value="Finalizar" actionListener="#{viewEvaluation.finish}" rendered="#{(index+1) == stop}" />
 						</div>
