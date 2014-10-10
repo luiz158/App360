@@ -1,6 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:r="http://richfaces.org" xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:c="http://java.sun.com/jstl/core">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:r="http://richfaces.org"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jstl/core">
 
 <ui:composition template="/templates/main.xhtml">
 	<ui:define name="content">
@@ -9,22 +10,29 @@
 		<h:form id="form" prependId="false" rendered="#{loggedIn}">
 			<r:outputPanel ajaxRendered="true">
 				<r:region>
-					<fieldset>
-						<legend>
-							<h:outputText style="font-weight: bold;" value="Evaluando a: " />
-						</legend>
-						<h:outputLabel value="#{managedEvaluation.evaluand.fullName}" />
-					</fieldset>
-					<br />
-
-					<fieldset style="#{viewEvaluation.competence.css}">
-						<h:panelGrid columns="1" style="color: white;">
+					<fieldset class="centered" style="position: fixed; top: 50px; left: 50px; #{viewEvaluation.competence.css}">
+						<h:panelGrid columns="1" style="color: white; ">
+							<h:outputLabel style="font-weight: bold;" value="Evaluando a: " />
+							<h:outputLabel value="#{managedEvaluation.evaluand.fullName}" />
 							<h:outputLabel style="font-weight: bold;" value="Competencia: #{viewEvaluation.competence.name}" />
 							<h:outputLabel value="#{viewEvaluation.competence.description}" />
 						</h:panelGrid>
+						<div style="margin: 5px; text-align: center;">
+							<r:commandButton value="Anterior" actionListener="#{viewEvaluation.prevQ}" rendered="#{ 0 != index}"
+								immediate="true" />
+							<r:commandButton value="Siquiente" actionListener="#{viewEvaluation.nextQ}" rendered="#{(index+1) != stop}" />
+							<r:commandButton value="Finalizar" actionListener="#{viewEvaluation.finish}" rendered="#{(index+1) == stop}" />
+						</div>
 					</fieldset>
 					<br />
-
+					<br />
+					<br />
+					<br />
+					<br />
+					<br />
+					<br />
+					<br />
+					<br />
 					<r:repeat value="#{viewEvaluation.behaviorsForCompetence}" var="b" rowKeyVar="bNum">
 						<r:panel header="#{b.name}">
 							<r:dataTable value="#{viewEvaluation.questionsForBehavior(b.id)}" var="q" rowKeyVar="qNum">
@@ -35,6 +43,7 @@
 								<r:column style="width:400px">
 									<f:facet name="header">Afirmación</f:facet>
 									<h:outputText value="#{q.qtext}" />
+									<h:outputText value=": #{viewEvaluation.competence.name}" rendered="#{q.open}" />
 								</r:column>
 								<r:column>
 									<f:facet name="header">.</f:facet>
@@ -51,11 +60,6 @@
 						</r:panel>
 						<br />
 					</r:repeat>
-
-					<r:commandButton value="Anterior" actionListener="#{viewEvaluation.prevQ}" rendered="#{ 0 != index}"
-						immediate="true" />
-					<r:commandButton value="Siquiente" actionListener="#{viewEvaluation.nextQ}" rendered="#{(index+1) != stop}" />
-					<r:commandButton value="Finalizar" actionListener="#{viewEvaluation.finish}" rendered="#{(index+1) == stop}" />
 				</r:region>
 			</r:outputPanel>
 		</h:form>
