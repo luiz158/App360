@@ -9,7 +9,17 @@
 		<r:notifyMessages stayTime="2000" />
 		<h:form id="form" prependId="false" rendered="#{loggedIn}">
 			<r:outputPanel ajaxRendered="true">
-				<r:region>
+				<r:region rendered="#{empty managedEvaluation}">
+					<r:panel styleClass="centered" style="width: 350px">
+						<f:facet name="header">Aviso</f:facet>
+						<p>Por favor seleccione una evaluación de la lista para continuar.</p>
+						<div style="margin: 5px; text-align: center;">
+							<r:commandButton action="evaluations.xhtml?faces-redirect=true" value="Mis evaluaciones" />
+						</div>
+					</r:panel>
+				</r:region>
+
+				<r:region rendered="#{not empty managedEvaluation}">
 					<fieldset class="floatingDIV" style="#{viewEvaluation.competence.css}">
 						<h:panelGrid columns="1" style="color: white; ">
 							<h:outputLabel style="font-weight: bold;" value="Evaluando a: " />
@@ -18,7 +28,7 @@
 							<h:outputLabel value="#{viewEvaluation.competence.description}" />
 						</h:panelGrid>
 						<div style="margin: 5px; text-align: center;">
-							<r:commandButton value="Anterior" actionListener="#{viewEvaluation.prevQ}" rendered="#{ 0 != index}"
+							<r:commandButton value="Anterior" actionListener="#{viewEvaluation.prevQ}" rendered="#{0 != index}"
 								immediate="true" />
 							&nbsp;
 							<r:commandButton value="Siquiente" actionListener="#{viewEvaluation.nextQ}" rendered="#{(index+1) != stop}" />
