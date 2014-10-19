@@ -1,3 +1,0 @@
-Add survey SQL remember to add weight field.
-Workout structure SQL
-Workout evaluation_load SQL

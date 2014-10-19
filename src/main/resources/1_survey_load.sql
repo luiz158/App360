@@ -3,10 +3,10 @@
 BEGIN;
 
 -- TRUNCATE Data on tables
-TRUNCATE TABLE questions;
-TRUNCATE TABLE surveys;
-TRUNCATE TABLE behaviors;
-TRUNCATE TABLE competencies;
+TRUNCATE TABLE questions CASCADE;
+TRUNCATE TABLE surveys CASCADE;
+TRUNCATE TABLE behaviors CASCADE;
+TRUNCATE TABLE competencies CASCADE;
 
 -- RESET Sequence on tables
 ALTER SEQUENCE questions_id_seq RESTART WITH 1;
