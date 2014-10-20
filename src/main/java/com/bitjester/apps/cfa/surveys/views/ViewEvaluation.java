@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import java.util.logging.Logger;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.inject.Produces;
@@ -31,14 +32,22 @@ public class ViewEvaluation implements Serializable {
 	@Inject
 	private EntityManager em;
 
+	@Inject
+	private Logger logger;
+
 	private int index = 0;
 	private List<Competence> competencies;
 	private Evaluation managedEvaluation;
 
 	@PostConstruct
-	private void init() throws Exception {
-		load((Long) FacesUtil.getFlash().get("evaluation"));
-		FacesUtil.getFlash().clear();
+	private void init() {
+		try {
+			load((Long) FacesUtil.getFlash().get("evaluation"));
+			FacesUtil.getFlash().clear();
+		} catch (Exception e) {
+			logger.info(e.getMessage());
+			e.printStackTrace();
+		}
 	}
 
 	// ================================

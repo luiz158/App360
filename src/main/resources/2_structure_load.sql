@@ -512,8 +512,7 @@ INSERT INTO employees (hurid, lname, fname, position, doc_id, brand, country) VA
 ('01866578-3','FUENTES MELGAR','MARITZA ESMERALDA','HOSTESS','01866578-3',7,1),
 ('03573902-4','FERNANDEZ MARTINEZ','FANI EMELI','HOSTESS','03573902-4',7,1),
 ('02605649-3','GONZALEZ MARTINEZ','MARIA ALEJANDRA','HOSTESS','02605649-3',7,1);
-UPDATE employees SET create_time=now(), create_User='0 - System', version=0 WHERE id IS NOT NULL;
-
+UPDATE employees SET active=TRUE, create_time=now(), create_User='0 - System', version=0 WHERE id IS NOT NULL;
 
 UPDATE employees SET boss=NULL WHERE id=1;
 UPDATE employees SET boss=1 WHERE id=2;
