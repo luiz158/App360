@@ -20,12 +20,10 @@
 				</r:region>
 
 				<r:region rendered="#{not empty managedEvaluation}">
-					<fieldset class="floatingDIV" style="#{viewEvaluation.competence.css}">
-						<h:panelGrid columns="1" style="color: white; ">
+					<fieldset class="floatingDIV" style="background-color: rgba(255,255,255,0.85);">
+						<h:panelGrid columns="1">
 							<h:outputLabel style="font-weight: bold;" value="Evaluando a: " />
 							<h:outputLabel value="#{managedEvaluation.evaluand.fullName}" />
-							<h:outputLabel style="font-weight: bold;" value="Competencia: #{viewEvaluation.competence.name}" />
-							<h:outputLabel value="#{viewEvaluation.competence.description}" />
 						</h:panelGrid>
 						<div style="margin: 5px; text-align: center;">
 							<r:commandButton value="Anterior" actionListener="#{viewEvaluation.prevQ}" rendered="#{0 != index}"
@@ -35,17 +33,20 @@
 							<r:commandButton value="Finalizar" actionListener="#{viewEvaluation.finish}" rendered="#{(index+1) == stop}" />
 						</div>
 					</fieldset>
+					
 					<br />
 					<br />
 					<br />
 					<br />
 					<br />
 					<br />
-					<br />
-					<br />
+					
+					<h2 class="tcenter" style="text-align: center; font-weight: bold; #{viewEvaluation.competence.css}">Competencia:
+						#{viewEvaluation.competence.name}</h2>
+					<p>#{viewEvaluation.competence.description}</p>
 					<br />
 					<r:repeat value="#{viewEvaluation.behaviorsForCompetence}" var="b" rowKeyVar="bNum">
-						<r:panel header="#{b.name}">
+						<r:panel header="#{viewEvaluation.competence.name}: #{b.name}" style="text-align: center;">
 							<r:dataTable value="#{viewEvaluation.questionsForBehavior(b.id)}" var="q" rowKeyVar="qNum">
 								<r:column>
 									<f:facet name="header">#</f:facet>

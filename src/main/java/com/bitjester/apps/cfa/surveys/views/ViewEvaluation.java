@@ -46,7 +46,7 @@ public class ViewEvaluation implements Serializable {
 			FacesUtil.getFlash().clear();
 		} catch (Exception e) {
 			logger.info(e.getMessage());
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
 	}
 
