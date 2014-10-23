@@ -1,12 +1,126 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:c="http://java.sun.com/jstl/core" xmlns:p="http://primefaces.org/ui">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jstl/core" xmlns:p="http://primefaces.org/ui">
 
 <ui:composition template="/templates/report.xhtml">
 	<ui:define name="content">
 		#{login.checkRole('admin')}
 		<h:form id="form" prependId="false">
-			<p>Bajo construcción</p>
+			<p class="startAdjustment" />
+			<h:panelGrid columns="3">
+				<h:graphicImage library="images" name="logo_180.png" style="float: left;" />
+				<h:panelGrid columns="2" style="clear: right; padding: 20px; width: 500px;">
+					<h:outputLabel value="Empleado:" />
+					<h:outputText value="#{report360.employee.fullName}" />
+					<h:outputLabel value="Marca:" />
+					<h:outputText value="#{report360.employee.brand.name}" />
+					<h:outputLabel value="Evaluación:" />
+					<h:outputText value="#{report360.survey.name}" />
+				</h:panelGrid>
+				<p:panel header="Promedio:" style="float: right; width: 100px;">
+					<h:panelGrid columns="3">
+						<h:outputLabel value="Jefe:" />
+						<h:outputText value="#{report360.bossOverallScore}" />
+						<h:graphicImage library="images/reports" name="#{report360.scoreImage(report360.bossOverallScore)}" />
+						<h:outputLabel value="Auto:" />
+						<h:outputText value="#{report360.autoOverallScore}" />
+						<h:graphicImage library="images/reports" name="#{report360.scoreImage(report360.autoOverallScore)}" />
+						<h:outputLabel value="Otros:" />
+						<h:outputText value="#{report360.elseOverallScore}" />
+						<h:graphicImage library="images/reports" name="#{report360.scoreImage(report360.elseOverallScore)}" />
+					</h:panelGrid>
+				</p:panel>
+			</h:panelGrid>
+
+			<br />
+
+			<p:panel styleClass="centered" style="width: 210px;">
+				<h2>
+					<h:panelGrid columns="3">
+						<h:outputLabel style="font-weight: normal;" value="Nota 360&deg;:" />
+						<h:outputText style="font-weight: bold; font-size: 130%;" value="#{report360.elseOverallScore}" />
+						<h:graphicImage library="images/reports" name="#{report360.scoreImage(report360.elseOverallScore)}" />
+					</h:panelGrid>
+				</h2>
+			</p:panel>
+			<p class="pageBreakAfter" />
+
+			<c:forEach items="#{report360.competencies}" var="competence">
+				<h2>Competencia: #{competence.name}</h2>
+				<p>#{competence.description}.</p>
+				<p:panel header="Promedio de evaluación de #{competence.name}.">
+					<h:panelGrid columns="3">
+						<h:outputLabel value="Jefe:" />
+						<h:outputText value="#{report360.bossCompetenceScore(competence.id)}" />
+						<h:graphicImage library="images/reports"
+							name="#{report360.scoreImage(report360.bossCompetenceScore(competence.id))}" />
+						<h:outputLabel value="Auto:" />
+						<h:outputText value="#{report360.autoCompetenceScore(competence.id)}" />
+						<h:graphicImage library="images/reports"
+							name="#{report360.scoreImage(report360.autoCompetenceScore(competence.id))}" />
+						<h:outputLabel value="Otros:" />
+						<h:outputText value="#{report360.elseCompetenceScore(competence.id)}" />
+						<h:graphicImage library="images/reports"
+							name="#{report360.scoreImage(report360.elseCompetenceScore(competence.id))}" />
+					</h:panelGrid>
+				</p:panel>
+
+				<c:forEach items="#{report360.getBehaviorsForCompetence(competence.id)}" var="behavior">
+					<h:panelGrid columns="3" styleClass="pageBreakAuto">
+						<p:panel style="width:280px; height:110px;">
+							<h:outputText value="#{behavior.name}" />
+						</p:panel>
+						<p:panel style="width:100px; height:110px;">
+							<h:panelGrid columns="3">
+								<h:outputLabel value="Jefe:" />
+								<h:outputText value="#{report360.bossBehaviorScore(behavior.id)}" />
+								<h:graphicImage library="images/reports"
+									name="#{report360.scoreImage(report360.bossBehaviorScore(behavior.id))}" />
+								<h:outputLabel value="Auto:" />
+								<h:outputText value="#{report360.autoBehaviorScore(behavior.id)}" />
+								<h:graphicImage library="images/reports"
+									name="#{report360.scoreImage(report360.autoBehaviorScore(behavior.id))}" />
+								<h:outputLabel value="Otros:" />
+								<h:outputText value="#{report360.elseBehaviorScore(behavior.id)}" />
+								<h:graphicImage library="images/reports"
+									name="#{report360.scoreImage(report360.elseBehaviorScore(behavior.id))}" />
+							</h:panelGrid>
+						</p:panel>
+						<p:panel>
+							<p:barChart value="#{report360.getBehaviorBC(behavior.id)}" min="1" max="6" shadow="false"
+								style="width:360px; height:100px;" orientation="horizontal" barMargin="5" barPadding="5" />
+						</p:panel>
+					</h:panelGrid>
+				</c:forEach>
+				<p:panel>
+					<c:forEach items="#{report360.getCompetenceOpenQuestions(competence.id)}" var="question">
+						<ul>
+							<c:forEach items="#{report360.getAnswersQuestions(question.id)}" var="answer">
+								<li><p class="comment">
+										<h:outputText value="#{answer.tvalue}" />
+									</p></li>
+							</c:forEach>
+						</ul>
+					</c:forEach>
+				</p:panel>
+				<p class="pageBreakAfter" />
+			</c:forEach>
+
+			<br />
+			<c:forEach items="#{report360.openQuestions}" var="question">
+				<p:panel>
+					<h2>#{question.qtext}</h2>
+					<ul>
+						<c:forEach items="#{report360.getAnswersQuestions(question.id)}" var="answer">
+							<li><p class="comment">
+									<h:outputText value="#{answer.tvalue}" />
+								</p></li>
+						</c:forEach>
+					</ul>
+				</p:panel>
+				<br />
+			</c:forEach>
 		</h:form>
 	</ui:define>
 </ui:composition>
