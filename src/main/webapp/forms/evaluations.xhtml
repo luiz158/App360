@@ -24,10 +24,11 @@
 						<p style="text-align: center;">Gracias por contribuir con este importante ejercicio a fortalecer el desarrollo
 							de nuestros líderes!</p>
 						<br />
-						<h:graphicImage library="images" name="logo_180.png" style="float: right;"/>
-						<p style="text-align: right;">Recursos Humanos</p>
-						<p style="text-align: right; font-weight: bold;">Premium Brands of America</p>
-					
+						<div style="text-align: right;">
+							<p style="font-weight: bold;">Recursos Humanos</p>
+							<h:graphicImage library="images" name="logo_180.png" />
+							<!-- p style="font-weight: bold;">Premium Brands of America</p -->
+						</div>
 					</r:panel>
 					<br />
 					<r:repeat value="#{viewPending.pendingSurveys}" var="survey">
