@@ -8,7 +8,7 @@
 		<h:form id="form" prependId="false">
 			<r:outputPanel ajaxRendered="true">
 				<r:region>
-					<r:panel rendered="#{!loggedIn}" styleClass="centered" style="width: 250px">
+					<r:panel rendered="#{!loggedIn}" styleClass="centered" style="width: 250px;">
 						<f:facet name="header">Bienvenido</f:facet>
 						<h:panelGrid columns="2">
 							<h:outputLabel value="Usuario:" />
@@ -22,7 +22,7 @@
 						</div>
 					</r:panel>
 
-					<r:panel rendered="#{loggedIn}" styleClass="centered" style="width: 550px" headerClass="tcentered">
+					<r:panel rendered="#{loggedIn}" styleClass="centered" style="font-size: 1.2em; width: 550px;" headerClass="tcentered">
 						<f:facet name="header">Bienvenido</f:facet>
 						<p style="text-align: justify;">Bienvenido a nuestro portal interactivo que contiene herramientas de opinión y
 							evaluación, de diferentes procesos de la organización.</p>
