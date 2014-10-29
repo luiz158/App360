@@ -20,7 +20,7 @@
 				</r:region>
 
 				<r:region rendered="#{not empty managedEvaluation}">
-					<fieldset class="floatingDIV" style="background-color: rgba(255,255,255,0.85);">
+					<fieldset class="floatingDIV" style="background-color: rgba(255, 255, 255, 0.85);">
 						<h:panelGrid columns="1">
 							<h:outputLabel style="font-weight: bold;" value="Evaluando a: " />
 							<h:outputLabel value="#{managedEvaluation.evaluand.fullName}" />
@@ -33,17 +33,17 @@
 							<r:commandButton value="Finalizar" actionListener="#{viewEvaluation.finish}" rendered="#{(index+1) == stop}" />
 						</div>
 					</fieldset>
-					
+
 					<br />
 					<br />
 					<br />
 					<br />
 					<br />
 					<br />
-					
+
 					<h2 class="tcentered" style="text-align: center; font-weight: bold; #{viewEvaluation.competence.css}">Competencia:
 						#{viewEvaluation.competence.name}</h2>
-					<p>#{viewEvaluation.competence.description}</p>
+					<p class="tcentered" style="font-size: 1.2em;">#{viewEvaluation.competence.description}</p>
 					<br />
 					<r:repeat value="#{viewEvaluation.behaviorsForCompetence}" var="b" rowKeyVar="bNum">
 						<r:panel header="#{viewEvaluation.competence.name}: #{b.name}" style="text-align: center;">
