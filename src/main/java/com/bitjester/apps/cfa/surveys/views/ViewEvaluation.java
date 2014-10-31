@@ -46,7 +46,7 @@ public class ViewEvaluation implements Serializable {
 			FacesUtil.getFlash().clear();
 		} catch (Exception e) {
 			logger.info(e.getMessage());
-			//e.printStackTrace();
+			// e.printStackTrace();
 		}
 	}
 
@@ -77,14 +77,12 @@ public class ViewEvaluation implements Serializable {
 
 			while (ite.hasNext()) {
 				Question q = ite.next();
-				if (null != q) {
-					a = new Answer();
-					a.setEvaluation(e);
-					a.setQuestion(q);
-					a.setQindex(i++);
-					e.getAnswers().add(a);
-					bk.store(a);
-				}
+				a = new Answer();
+				a.setEvaluation(e);
+				a.setQuestion(q);
+				a.setQindex(i++);
+				e.getAnswers().add(a);
+				bk.store(a);
 			}
 			e = (Evaluation) bk.store(e);
 		}
@@ -163,6 +161,5 @@ public class ViewEvaluation implements Serializable {
 	public void setManagedEvaluation(Evaluation managedEvaluation)
 			throws Exception {
 		this.managedEvaluation = managedEvaluation;
-		load(managedEvaluation.getId());
 	}
 }

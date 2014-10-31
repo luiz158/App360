@@ -160,7 +160,7 @@ INSERT INTO questions (behavior, qindex, weight, qtext) VALUES
 (29,72,0,'Cuáles son las áreas de oportunidad en que deberá enfocarse el evaluado para mejorar su gestión');
 
 -- Set survey for 1st set of questions.
-UPDATE questions SET open=FALSE, required=TRUE, scale=0, survey=1  WHERE id > 0;
+UPDATE questions SET open=FALSE, qindex=qindex-1, required=TRUE, scale=0, survey=1  WHERE id > 0;
 ---------------------------------------
 -- END: 1st Survey (Non-Leads) --------
 ---------------------------------------
