@@ -75,6 +75,8 @@ public class ViewEvaluation implements Serializable {
 			Integer i = Integer.valueOf(0);
 			Iterator<Question> ite = e.getSurvey().getQuestions().iterator();
 
+			// Make sure that qindex starts at zero
+			// Applies to Questions on a Survey & Answers on an Evaluation
 			while (ite.hasNext()) {
 				Question q = ite.next();
 				a = new Answer();
