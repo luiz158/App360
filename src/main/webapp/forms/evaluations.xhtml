@@ -5,7 +5,7 @@
 
 <ui:composition template="/templates/main.xhtml">
 	<ui:define name="content">
-		#{login.checkRole(null)}
+		#{appSession.checkRole(null)}
 		<r:notifyMessages stayTime="2000" />
 		<h:form id="form" prependId="false" rendered="#{loggedIn}">
 			<r:outputPanel ajaxRendered="true">

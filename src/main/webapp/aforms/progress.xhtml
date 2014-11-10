@@ -4,7 +4,7 @@
 
 <ui:composition template="/templates/main.xhtml">
 	<ui:define name="content">
-	#{login.checkRole('admin')}
+	#{appSession.checkRole('admin')}
 	<h:form id="form" prependId="false">
 			<r:outputPanel ajaxRendered="true">
 				<r:region>

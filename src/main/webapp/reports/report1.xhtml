@@ -5,7 +5,7 @@
 
 <ui:composition template="/templates/report.xhtml">
 	<ui:define name="content">
-		#{login.checkRole('admin')}
+		#{appSession.checkRole('admin')}
 		<h:form id="form" prependId="false">
 			<p class="startAdjustment" />
 			<h:panelGrid columns="3">
