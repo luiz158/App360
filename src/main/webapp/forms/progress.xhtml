@@ -5,7 +5,7 @@
 
 <ui:composition template="/templates/main.xhtml">
 	<ui:define name="content">
-		#appSession.checkRole('admin')}
+		#{appSession.checkRole('admin')}
 		<r:notifyMessages stayTime="2000" />
 		<h:form id="form" prependId="false">
 			<r:outputPanel ajaxRendered="true">
