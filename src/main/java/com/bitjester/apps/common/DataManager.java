@@ -1,7 +1,6 @@
 package com.bitjester.apps.common;
 
 import java.io.Serializable;
-import java.util.Iterator;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -22,15 +21,12 @@ public class DataManager implements Serializable {
 
 		int i = 0;
 		Query q = em.createQuery(query);
-
 		// Process parameters if any.
 		if (null != params) {
-			Iterator<Object> ite = params.iterator();
-			while (ite.hasNext()) {
-				q.setParameter(i++, ite.next());
-			}
+			for (Object param : params) {
+                q.setParameter(i++, param);
+            }
 		}
-
 		return q.executeUpdate();
 	}
 

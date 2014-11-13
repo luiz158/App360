@@ -2,7 +2,6 @@ package com.bitjester.apps.cfa.surveys.views;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -72,17 +71,11 @@ public class ViewEvaluation implements Serializable {
 
 		if (0 == e.getAnswers().size()) {
 			Answer a;
-			Integer i = Integer.valueOf(0);
-			Iterator<Question> ite = e.getSurvey().getQuestions().iterator();
-
-			// Make sure that qindex starts at zero
-			// Applies to Questions on a Survey & Answers on an Evaluation
-			while (ite.hasNext()) {
-				Question q = ite.next();
+			for (Question q : e.getSurvey().getQuestions()) {
 				a = new Answer();
 				a.setEvaluation(e);
 				a.setQuestion(q);
-				a.setQindex(i++);
+				a.setQindex(q.getQindex());
 				e.getAnswers().add(a);
 				bk.store(a);
 			}

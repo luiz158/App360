@@ -1,7 +1,6 @@
 package com.bitjester.apps.common.views;
 
 import java.io.Serializable;
-import java.util.Iterator;
 import java.util.List;
 
 import javax.enterprise.context.RequestScoped;
@@ -63,12 +62,9 @@ public class ViewUsers implements Serializable {
 		String query = "SELECT DISTINCT(ev.evaluator) FROM Evaluation ev";
 		query += " WHERE ev.evaluator.active = TRUE AND ev.evaluator.doc_id NOT IN";
 		query += " (SELECT DISTINCT(username) FROM AppUser)";
-		Iterator<Employee> ite = em.createQuery(query, Employee.class).getResultList().iterator();
 
-		Employee emp;
 		AppUser user;
-		while (ite.hasNext()) {
-			emp = ite.next();
+		for(Employee emp : em.createQuery(query, Employee.class).getResultList()){
 			user = new AppUser();
 			user.setEmployee(emp);
 			user.setName(emp.getFullName());
