@@ -14,7 +14,17 @@
 					<h:outputLabel value="Empleado:" />
 					<h:outputText value="#{report360.employee.fullName}" />
 					<h:outputLabel value="Marca:" />
-					<h:outputText value="#{report360.employee.brand.name}" />
+					<c:choose>
+						<c:when test="#{'ASESORIA INTEGRAL' == report360.employee.brand.name}">
+							<h:outputText value="PREMIUM" />
+						</c:when>
+						<c:when test="#{'SERVICIOS OPERATIVOS' == report360.employee.brand.name}">
+							<h:outputText value="PREMIUM" />
+						</c:when>
+						<c:otherwise>
+							<h:outputText value="#{report360.employee.brand.name}" />
+						</c:otherwise>
+					</c:choose>
 					<h:outputLabel value="Evaluación:" />
 					<h:outputText value="#{report360.survey.name}" />
 				</h:panelGrid>

@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:c="http://java.sun.com/jstl/core" xmlns:p="http://primefaces.org/ui">
+	xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:p="http://primefaces.org/ui">
 
 <ui:composition template="/templates/report.xhtml">
 	<ui:define name="content">
@@ -14,6 +14,17 @@
 					<h:outputLabel value="Empleado:" />
 					<h:outputText value="#{report360.employee.fullName}" />
 					<h:outputLabel value="Marca:" />
+					<c:choose>
+						<c:when test="#{'ASESORIA INTEGRAL' == report360.employee.brand.name}">
+							<h:outputText value="PREMIUM" />
+						</c:when>
+						<c:when test="#{'SERVICIOS OPERATIVOS' == report360.employee.brand.name}">
+							<h:outputText value="PREMIUM" />
+						</c:when>
+						<c:otherwise>
+							<h:outputText value="#{report360.employee.brand.name}" />
+						</c:otherwise>
+					</c:choose>
 					<h:outputText value="#{report360.employee.brand.name}" />
 					<h:outputLabel value="Evaluación:" />
 					<h:outputText value="#{report360.survey.name}" />
