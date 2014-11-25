@@ -178,11 +178,11 @@ public class Report360 implements Serializable {
 	public String scoreImage(Double score) {
 		if (0 == score)
 			return "wScore.png";
-		if (5 == score)
+		if (5 <= score)
 			return "bScore.png";
-		if (4 <= score)
-			return "gScore.png";
 		if (3 <= score)
+			return "gScore.png";
+		if (2 <= score)
 			return "yScore.png";
 		return "rScore.png";
 	}
@@ -208,7 +208,7 @@ public class Report360 implements Serializable {
 	}
 
 	private Double formatResult(Double number) throws NumberFormatException {
-		return Double.parseDouble(new DecimalFormat("#.##").format(1.25D * number));
+		return Double.parseDouble(new DecimalFormat("#.##").format(1.0D * number));
 	}
 
 	public Double getAutoOverallScore() {
