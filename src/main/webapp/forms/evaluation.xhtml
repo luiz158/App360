@@ -61,7 +61,7 @@
 									<f:facet name="header">.</f:facet>
 									<h:selectOneRadio value="#{managedEvaluation.answers[q.qindex].nvalue}" rendered="#{!q.open}"
 										required="#{q.required}" requiredMessage="Q:#{bNum+1}.#{qNum+1} - #{msg.RAnswer}">
-										<f:selectItems value="#{scaleUtils.scaleList[q.scale]}" />
+										<f:selectItems value="#{scaleUtils.scaleList.get(q.scale)}" />
 									</h:selectOneRadio>
 									<h:inputTextarea value="#{managedEvaluation.answers[q.qindex].tvalue}" rendered="#{q.open}"
 										required="#{q.required}" requiredMessage="Q:#{bNum+1}.#{qNum+1} - #{msg.RAnswer}" cols="80" rows="5">
