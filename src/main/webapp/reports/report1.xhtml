@@ -25,7 +25,6 @@
 							<h:outputText value="#{report360.employee.brand.name}" />
 						</c:otherwise>
 					</c:choose>
-					<h:outputText value="#{report360.employee.brand.name}" />
 					<h:outputLabel value="Evaluación:" />
 					<h:outputText value="Evaluación 360 [2014]" />
 				</h:panelGrid>
@@ -118,23 +117,24 @@
 				<p class="pageBreakAfter" />
 			</c:forEach>
 
-			<div class="centered" style="width: 210px;">
+			<br />
+			<div class="centered" style="width: 400px;">
 				<p:panel header="+3">
-					<c:forEach items="#{report360.topBehaviors}" var="b">
-						<p:panelGrid columns="2">
-							<h:outputLabel value="#{b.key}:" />
+					<p:panelGrid columns="2" styleClass="centered">
+						<c:forEach items="#{report360.topBehaviors}" var="b">
+							<h:outputLabel value="#{b.key}" />
 							<h:outputText value="#{b.value}" />
-						</p:panelGrid>
-					</c:forEach>
+						</c:forEach>
+					</p:panelGrid>
 				</p:panel>
 				<br />
 				<p:panel header="-3">
-					<c:forEach items="#{report360.lowBehaviors}" var="b">
-						<p:panelGrid columns="2">
-							<h:outputLabel value="#{b.key}:" />
+					<p:panelGrid columns="2" styleClass="centered">
+						<c:forEach items="#{report360.lowBehaviors}" var="b">
+							<h:outputLabel value="#{b.key}" />
 							<h:outputText value="#{b.value}" />
-						</p:panelGrid>
-					</c:forEach>
+						</c:forEach>
+					</p:panelGrid>
 				</p:panel>
 			</div>
 			<p class="pageBreakAfter" />

@@ -34,44 +34,56 @@ public class Report360 implements Serializable {
 
 	private Employee employee;
 	private Survey survey;
-	private List<Long> behaviors;
+	private List<Behavior> behaviors;
 	private List<Double> scores;
 
 	@PostConstruct
 	private void init() {
-		employee = em.find(Employee.class, FacesUtil.getFlash().get("employee"));
+		employee = em
+				.find(Employee.class, FacesUtil.getFlash().get("employee"));
 		survey = em.find(Survey.class, FacesUtil.getFlash().get("survey"));
 		FacesUtil.getFlash().clear();
-		
+
 		// Initializing behaviors & scores
 		behaviors = new ArrayList<>();
+		scores = new ArrayList<>();
+
+		try {
+			for (Competence c : getCompetencies()) {
+				for (Behavior b : getBehaviorsForCompetence(c.getId())) {
+					insertScoreforBehavior(b, behaviorScore(b.getId(), employee, null, 1));
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
-	
-	public Map<Long,Double> getLowBehaviors(){
-		int i = behaviors.size() - 1;
-		int j = i - 3;
-		Map<Long, Double> m = new LinkedHashMap<>();
-		for(;i > j; i--)
-			m.put(behaviors.get(i), scores.get(i));
-		return m;
-	}
-	
-	public Map<Long,Double> getTopBehaviors(){
+
+	private void insertScoreforBehavior(Behavior behavior, Double score) {
 		int i = 0;
-		Map<Long, Double> m = new LinkedHashMap<>();
-		for(;i < 3; i++)
-			m.put(behaviors.get(i), scores.get(i));
-		return m;
-	}
-	
-	private void insertScoreforBehavior(Long behavior, Double score){
-		int i = 0;
-		for(Double s : scores){
-			if(s > score)
+		for (Double s : scores) {
+			if (s > score)
 				i++;
 		}
 		behaviors.add(i, behavior);
 		scores.add(i, score);
+	}
+
+	public Map<String, Double> getLowBehaviors() {
+		int i = behaviors.size() - 1;
+		int j = i - 3;
+		Map<String, Double> m = new LinkedHashMap<>();
+		for (; i > j; i--)
+			m.put(behaviors.get(i).getName(), scores.get(i));
+		return m;
+	}
+
+	public Map<String, Double> getTopBehaviors() {
+		int i = 0;
+		Map<String, Double> m = new LinkedHashMap<>();
+		for (; i < 3; i++)
+			m.put(behaviors.get(i).getName(), scores.get(i));
+		return m;
 	}
 
 	public List<Competence> getCompetencies() throws Exception {
@@ -83,7 +95,8 @@ public class Report360 implements Serializable {
 		return em.createQuery(query, Competence.class).getResultList();
 	}
 
-	public List<Behavior> getBehaviorsForCompetence(Long competence) throws Exception {
+	public List<Behavior> getBehaviorsForCompetence(Long competence)
+			throws Exception {
 		String query = "FROM Behavior WHERE id IN (";
 		query += "SELECT DISTINCT(behavior.id) FROM Question";
 		query += " WHERE survey.id =" + survey.getId();
@@ -100,7 +113,8 @@ public class Report360 implements Serializable {
 		return em.createQuery(query, Question.class).getResultList();
 	}
 
-	public List<Question> getCompetenceOpenQuestions(Long competence) throws Exception {
+	public List<Question> getCompetenceOpenQuestions(Long competence)
+			throws Exception {
 		String query = "FROM Question WHERE survey.id =" + survey.getId();
 		query += " AND behavior.competence.id =" + competence;
 		query += " ORDER BY behavior.id";
@@ -115,29 +129,31 @@ public class Report360 implements Serializable {
 		return em.createQuery(query, Answer.class).getResultList();
 	}
 
-	private Double behaviorScore(Long behavior, Employee employee, Employee evaluator, int mode) {
+	private Double behaviorScore(Long behavior, Employee employee,
+			Employee evaluator, int mode) {
 		try {
 			String query = "SELECT Avg(nvalue) FROM Answer WHERE evaluation.completed =TRUE";
 			query += " AND question.survey.id =" + survey.getId();
 			query += " AND question.behavior.id =" + behavior;
 			query += " AND question.open =FALSE";
 			query += evalMode(employee, evaluator, mode);
-			Double d = formatResult(em.createQuery(query, Double.class).getSingleResult());
-			insertScoreforBehavior(behavior, d);
-			return d;
+			return formatResult(em.createQuery(query, Double.class)
+					.getSingleResult());
 		} catch (Exception e) {
 			return 0D;
 		}
 	}
 
-	private Double competenceScore(Long competence, Employee employee, Employee evaluator, int mode) {
+	private Double competenceScore(Long competence, Employee employee,
+			Employee evaluator, int mode) {
 		try {
 			String query = "SELECT Avg(nvalue) FROM Answer WHERE evaluation.completed =TRUE";
 			query += " AND question.survey.id =" + survey.getId();
 			query += " AND question.behavior.competence.id =" + competence;
 			query += " AND question.open =FALSE";
 			query += evalMode(employee, evaluator, mode);
-			return formatResult(em.createQuery(query, Double.class).getSingleResult());
+			return formatResult(em.createQuery(query, Double.class)
+					.getSingleResult());
 		} catch (Exception e) {
 			return 0D;
 		}
@@ -149,20 +165,23 @@ public class Report360 implements Serializable {
 			query += " AND question.survey.id =" + survey.getId();
 			query += " AND question.open =FALSE";
 			query += evalMode(employee, evaluator, mode);
-			return formatResult(em.createQuery(query, Double.class).getSingleResult());
+			return formatResult(em.createQuery(query, Double.class)
+					.getSingleResult());
 		} catch (Exception e) {
 			return 0D;
 		}
 	}
 
 	// Aux method for general 360 report.
-	public Double Score360(Employee employee, Employee evaluator, Survey survey, int mode) {
+	public Double Score360(Employee employee, Employee evaluator,
+			Survey survey, int mode) {
 		try {
 			String query = "SELECT Avg(nvalue) FROM Answer WHERE evaluation.completed =TRUE";
 			query += " AND question.survey.id =" + survey.getId();
 			query += " AND question.open =FALSE";
 			query += evalMode(employee, evaluator, mode);
-			return formatResult(em.createQuery(query, Double.class).getSingleResult());
+			return formatResult(em.createQuery(query, Double.class)
+					.getSingleResult());
 		} catch (Exception e) {
 			return 0D;
 		}
@@ -188,7 +207,8 @@ public class Report360 implements Serializable {
 			modeString += " AND evaluation.evaluand.id =" + employee.getId();
 			modeString += " AND evaluation.evaluator.id <>" + employee.getId();
 			// if (null != evaluator) {
-			// modeString += " AND evaluation.evaluator.id <>" + evaluator.getId();
+			// modeString += " AND evaluation.evaluator.id <>" +
+			// evaluator.getId();
 			// }
 			break;
 		}
@@ -244,7 +264,8 @@ public class Report360 implements Serializable {
 	}
 
 	private Double formatResult(Double number) throws NumberFormatException {
-		return Double.parseDouble(new DecimalFormat("#.##").format(1.0D * number));
+		return Double.parseDouble(new DecimalFormat("#.##")
+				.format(1.0D * number));
 	}
 
 	public Double getAutoOverallScore() {
