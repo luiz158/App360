@@ -118,6 +118,27 @@
 				<p class="pageBreakAfter" />
 			</c:forEach>
 
+			<div class="centered" style="width: 210px;">
+				<p:panel header="+3">
+					<c:forEach items="#{report360.topBehaviors}" var="b">
+						<p:panelGrid columns="2">
+							<h:outputLabel value="#{b.key}:" />
+							<h:outputText value="#{b.value}" />
+						</p:panelGrid>
+					</c:forEach>
+				</p:panel>
+				<br />
+				<p:panel header="-3">
+					<c:forEach items="#{report360.lowBehaviors}" var="b">
+						<p:panelGrid columns="2">
+							<h:outputLabel value="#{b.key}:" />
+							<h:outputText value="#{b.value}" />
+						</p:panelGrid>
+					</c:forEach>
+				</p:panel>
+			</div>
+			<p class="pageBreakAfter" />
+
 			<br />
 			<c:forEach items="#{report360.openQuestions}" var="question">
 				<p:panel>

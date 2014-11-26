@@ -2,7 +2,10 @@ package com.bitjester.apps.cfa.surveys.reports;
 
 import java.io.Serializable;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
@@ -31,13 +34,44 @@ public class Report360 implements Serializable {
 
 	private Employee employee;
 	private Survey survey;
+	private List<Long> behaviors;
+	private List<Double> scores;
 
 	@PostConstruct
 	private void init() {
-		//System.out.println("Map2: " + FacesUtil.getFlash().toString());
 		employee = em.find(Employee.class, FacesUtil.getFlash().get("employee"));
 		survey = em.find(Survey.class, FacesUtil.getFlash().get("survey"));
 		FacesUtil.getFlash().clear();
+		
+		// Initializing behaviors & scores
+		behaviors = new ArrayList<>();
+	}
+	
+	public Map<Long,Double> getLowBehaviors(){
+		int i = behaviors.size() - 1;
+		int j = i - 3;
+		Map<Long, Double> m = new LinkedHashMap<>();
+		for(;i > j; i--)
+			m.put(behaviors.get(i), scores.get(i));
+		return m;
+	}
+	
+	public Map<Long,Double> getTopBehaviors(){
+		int i = 0;
+		Map<Long, Double> m = new LinkedHashMap<>();
+		for(;i < 3; i++)
+			m.put(behaviors.get(i), scores.get(i));
+		return m;
+	}
+	
+	private void insertScoreforBehavior(Long behavior, Double score){
+		int i = 0;
+		for(Double s : scores){
+			if(s > score)
+				i++;
+		}
+		behaviors.add(i, behavior);
+		scores.add(i, score);
 	}
 
 	public List<Competence> getCompetencies() throws Exception {
@@ -88,7 +122,9 @@ public class Report360 implements Serializable {
 			query += " AND question.behavior.id =" + behavior;
 			query += " AND question.open =FALSE";
 			query += evalMode(employee, evaluator, mode);
-			return formatResult(em.createQuery(query, Double.class).getSingleResult());
+			Double d = formatResult(em.createQuery(query, Double.class).getSingleResult());
+			insertScoreforBehavior(behavior, d);
+			return d;
 		} catch (Exception e) {
 			return 0D;
 		}
