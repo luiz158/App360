@@ -10,9 +10,6 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 
-import org.richfaces.ui.iteration.tree.TreeSelectionChangeEvent;
-import org.richfaces.ui.iteration.tree.AbstractTree;
-
 import com.bitjester.apps.cfa.entities.Brand;
 import com.bitjester.apps.cfa.entities.Country;
 import com.bitjester.apps.cfa.hhrr.entities.*;
@@ -114,6 +111,7 @@ public class ViewEmployee implements Serializable {
 		return em.createQuery(query, Employee.class).getResultList();
 	}
 
+	/*
 	public void selectEmployeeNode(TreeSelectionChangeEvent e) {
 		// TODO: Implement Node selection code to select managedEmployee.
 		List<Object> selection = new ArrayList<Object>(e.getNewSelection());
@@ -125,7 +123,7 @@ public class ViewEmployee implements Serializable {
 		tn.setRowKey(currentSelectionKey);
 		managedEmployee = (Employee) tn.getRowData();
 		tn.setRowKey(storedKey);
-	}
+	}*/
 
 	// ================================
 	// ======= Listing Methods ========
