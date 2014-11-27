@@ -1,3 +1,12 @@
-The OpenShift `jbossas` cartridge documentation can be found at:
+Human Resource Application
+=======================================
+To conduct 360 Performance Evaluation to an entire organization.
+Supports multi-country & multi-brand organizational schemas.
 
-https://github.com/openshift/origin-server/tree/master/cartridges/openshift-origin-cartridge-jbossas/README.md
+Technologies:
+- CDI 1.1
+- JEE7
+- JPA 2.1
+- JSF 2.2
+
+
