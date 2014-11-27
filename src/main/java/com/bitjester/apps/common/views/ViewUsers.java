@@ -10,7 +10,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 
-import com.bitjester.apps.cfa.hhrr.entities.Employee;
+import com.bitjester.apps.app360.hhrr.entities.Employee;
 import com.bitjester.apps.common.entities.AppUser;
 import com.bitjester.apps.common.utils.BookKeeper;
 import com.bitjester.apps.common.utils.FacesUtil;

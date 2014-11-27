@@ -17,7 +17,7 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
 
-import com.bitjester.apps.cfa.hhrr.entities.Employee;
+import com.bitjester.apps.app360.hhrr.entities.Employee;
 import com.bitjester.apps.common.BaseEntity;
 import com.bitjester.apps.common.utils.BookKeeper;
 
@@ -51,7 +51,7 @@ public class AppUser extends BaseEntity {
 		super();
 		active = Boolean.TRUE;
 		mustChangePassword = Boolean.TRUE;
-		roles = new ArrayList<AppRole>(0);
+		roles = new ArrayList<>(0);
 	}
 
 	// Role methods
