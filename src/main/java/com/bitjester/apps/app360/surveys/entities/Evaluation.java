@@ -30,13 +30,8 @@ public class Evaluation extends BaseEntity {
 	@ManyToOne
 	@JoinColumn(name = "survey")
 	private Survey survey;
-	private String relation;
 	private Boolean completed = Boolean.FALSE;
 	private Date cdate;
-	// Keep historic data
-	private String hevaluand;
-	private String hcompany;
-	private String hposition;
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "evaluation", orphanRemoval = true)
 	@OrderColumn(name = "qindex")
@@ -68,14 +63,6 @@ public class Evaluation extends BaseEntity {
 		this.survey = survey;
 	}
 
-	public String getRelation() {
-		return relation;
-	}
-
-	public void setRelation(String relation) {
-		this.relation = relation;
-	}
-
 	public Boolean getCompleted() {
 		return completed;
 	}
@@ -90,30 +77,6 @@ public class Evaluation extends BaseEntity {
 
 	public void setCdate(Date cdate) {
 		this.cdate = cdate;
-	}
-
-	public String getHevaluand() {
-		return hevaluand;
-	}
-
-	public void setHevaluand(String hevaluand) {
-		this.hevaluand = hevaluand;
-	}
-
-	public String getHcompany() {
-		return hcompany;
-	}
-
-	public void setHcompany(String hcompany) {
-		this.hcompany = hcompany;
-	}
-
-	public String getHposition() {
-		return hposition;
-	}
-
-	public void setHposition(String hposition) {
-		this.hposition = hposition;
 	}
 
 	public List<Answer> getAnswers() {
