@@ -51,7 +51,8 @@ public class Report360 implements Serializable {
 		try {
 			for (Competence c : getCompetencies()) {
 				for (Behavior b : getBehaviorsForCompetence(c.getId())) {
-					insertScoreforBehavior(b, behaviorScore(b.getId(), employee, null, 1));
+					insertScoreforBehavior(b,
+							behaviorScore(b.getId(), employee, null, 1));
 				}
 			}
 		} catch (Exception e) {
@@ -122,10 +123,47 @@ public class Report360 implements Serializable {
 	}
 
 	public List<Answer> getAnswersQuestions(Long question) throws Exception {
-		String query = "FROM Answer WHERE question.id =" + question;
+		// Fixed for wrong evaluand survey
+		String query = "";
+		switch (question.intValue()) {
+		case 13:
+			query = "FROM Answer WHERE question.id IN (13,83)";
+			break;
+
+		case 23:
+			query = "FROM Answer WHERE question.id IN (23,93)";
+			break;
+			
+		case 36:
+			query = "FROM Answer WHERE question.id IN (36,106)";
+			break;
+			
+		case 56:
+			query = "FROM Answer WHERE question.id IN (56,113)";
+			break;
+			
+		case 70:
+			query = "FROM Answer WHERE question.id IN (70,124)";
+			break;
+
+		case 71:
+			query = "FROM Answer WHERE question.id IN (71,125)";
+			break;
+
+		case 72:
+			query = "FROM Answer WHERE question.id IN (72,126)";
+			break;
+
+		default:
+			query = "FROM Answer WHERE question.id =" + question;
+			break;
+		}
+
+		// String query = "FROM Answer WHERE question.id =" + question;
 		query += " AND evaluation.evaluand.id =" + employee.getId();
 		query += " AND tvalue IS NOT NULL";
 		query += " AND LENGTH(tvalue) > 0";
+		// System.out.println("Q:" + question + " - " + query);
 		return em.createQuery(query, Answer.class).getResultList();
 	}
 
