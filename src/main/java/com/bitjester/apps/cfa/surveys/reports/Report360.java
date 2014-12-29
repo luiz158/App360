@@ -127,30 +127,37 @@ public class Report360 implements Serializable {
 		String query = "";
 		switch (question.intValue()) {
 		case 13:
+		case 83:
 			query = "FROM Answer WHERE question.id IN (13,83)";
 			break;
 
 		case 23:
+		case 93:
 			query = "FROM Answer WHERE question.id IN (23,93)";
 			break;
 			
 		case 36:
+		case 106:
 			query = "FROM Answer WHERE question.id IN (36,106)";
 			break;
 			
 		case 56:
+		case 113:
 			query = "FROM Answer WHERE question.id IN (56,113)";
 			break;
 			
 		case 70:
+		case 124:
 			query = "FROM Answer WHERE question.id IN (70,124)";
 			break;
 
 		case 71:
+		case 125:
 			query = "FROM Answer WHERE question.id IN (71,125)";
 			break;
 
 		case 72:
+		case 126:
 			query = "FROM Answer WHERE question.id IN (72,126)";
 			break;
 
